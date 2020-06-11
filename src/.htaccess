@@ -1,0 +1,11 @@
+Options +FollowSymLinks -MultiViews
+RewriteEngine On
+
+RewriteBase /
+ 
+# Store the current location in an environment variable CWD
+RewriteCond $0#%{REQUEST_URI} ([^#]*)#(.*)\1$
+RewriteRule ^.*$ - [E=CWD:%2]
+ 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^.*$ %{ENV:CWD}public/$0 [QSA,L]
