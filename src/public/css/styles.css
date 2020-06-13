@@ -1,0 +1,111 @@
+:root {
+    --main-color: #4abdac;
+    --second-color: #fc4a1a;
+    --third-color: #f7b733;
+    --fourth-color: #dfdce3;
+}
+
+body {
+    background-color: #F5F5F5;
+}
+
+html {
+    font-size: 16px;
+}
+
+* {
+    font-family: 'Roboto Condensed', sans-serif;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.shadow {
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgba(0, 0, 0, 0.19);
+}
+
+.form-section {
+    max-width: 500px;
+    margin: 0 auto;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    background-color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+}
+
+.form-section>form {
+    width: 100%;
+    padding: 0.5rem;
+}
+
+.form-group {
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group input {
+    width: 100%;
+    height: 2rem;
+    padding: 5px 8px;
+    border-radius: .25rem;
+    border: 1px solid #ddd;
+}
+
+.form-group .btn {
+    height: 3rem;
+    border: 1px solid transparent;
+    font-size: 1.1rem;
+    border-radius: .25rem;
+    cursor: pointer;
+    color: white;
+}
+
+.btn-form-group {
+    margin-top: 4rem;
+}
+
+.aligncenter {
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: var(--main-color);
+}
+
+.required {
+    color: #bd2130;
+    font-size: 1.2rem;
+}
+
+#error-list {
+    color: #BB3937;
+}
+
+#login-form-section {
+    width: 30%;
+    margin-top: 7rem;
+}
+
+#register-form-section {
+    width: 35%;
+    margin-top: 5rem;
+}
+
+#register-link {
+    color: var(--main-color);
+}
