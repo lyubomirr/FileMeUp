@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - FileMeUp</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css" />
 </head>
 
@@ -17,7 +16,7 @@
                 <ul id="error-list">
                 </ul>
             </section>
-            <form class="flex" action="index.html" method="post" id="login-form">
+            <form action="index.html" method="post" id="login-form">
                 <div class="form-group">
                     <label for="username">
                         <span class="label-value">Username</span>

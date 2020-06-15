@@ -1,3 +1,12 @@
+<?php
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
+        require_once("templates/imports.php");
+        require_once(Config::constructFilePath("/Models/UserRegistration.php")); 
+
+        $registration = UserRegistration::fromJson(file_get_contents('php://input'));
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +14,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - FileMeUp</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css" />
 </head>
 
@@ -17,7 +25,7 @@
                 <ul id="error-list">
                 </ul>
             </section>
-            <form class="flex" action="index.html" method="post" id="register-form">
+            <form action="register.php" method="post" id="register-form">
                 <div class="form-group">
                     <label for="username">
                         <span class="label-value">Username</span>
@@ -39,11 +47,11 @@
                     <input type="password" name="password" id="password" required/>
                 </div>
                 <div class="form-group">
-                    <label for="confirm-password">
+                    <label for="passwordConfirmation">
                         <span class="label-value">Confirm password</span>
                         <span class="required">*</span>
                     </label>
-                    <input type="password" name="confirm-password" id="confirm-password" required/>
+                    <input type="password" name="passwordConfirmation" id="passwordConfirmation" required/>
                 </div>
                 <div class="form-group aligncenter btn-form-group">
                     <input type="submit" value="Register" class="btn btn-primary w-100" />
