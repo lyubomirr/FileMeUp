@@ -1,12 +1,3 @@
-<?php
-    if($_SERVER["REQUEST_METHOD"] == "POST") {
-        require_once("templates/imports.php");
-        require_once(Config::constructFilePath("/Models/UserRegistration.php")); 
-
-        $registration = UserRegistration::fromJson(file_get_contents('php://input'));
-    }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 

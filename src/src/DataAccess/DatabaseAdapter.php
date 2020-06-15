@@ -1,6 +1,4 @@
 <?php
-    require_once($_SERVER["DOCUMENT_ROOT"] . "/config/config.php");
-
     class DatabaseAdapter {
         private static $instance = null;
         private $connection;
@@ -14,7 +12,6 @@
         }
 
         private function __construct() {
-
             $this->initializeConnection();
         }
 

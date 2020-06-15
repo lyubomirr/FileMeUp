@@ -1,5 +1,5 @@
 <?php
-    require_once("templates/imports.php");
+    require_once("templates/globals.php");
     session_start();
 
     if(Utils::isLoggedIn()) {
