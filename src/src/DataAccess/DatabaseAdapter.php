@@ -33,5 +33,12 @@
             $statement = $this->connection->prepare($sql);
             return $statement->execute($parameters);
         }
+
+        public function fetchStatement($sql, $parameters) {
+            $statement = $this->connection->prepare($sql);
+            $statement->execute($parameters);
+
+            return $statement->fetchAll();
+        }
     }
 ?>

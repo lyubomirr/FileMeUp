@@ -16,7 +16,7 @@
                 <ul id="error-list">
                 </ul>
             </section>
-            <form action="index.html" method="post" id="login-form">
+            <form action="index.php" method="post" id="login-form">
                 <div class="form-group">
                     <label for="username">
                         <span class="label-value">Username</span>

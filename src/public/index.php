@@ -3,7 +3,7 @@
     session_start();
 
     if(Utils::isLoggedIn()) {
-        //Go to docs page.
+        header('Location: home.php');
     }
     else {
         header('Location: login.php');
