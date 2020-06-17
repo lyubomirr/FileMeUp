@@ -4,7 +4,7 @@
 
     class UsersService {
         public function registerUser($userRegistration) {
-
+            
         }
     }
 ?>

@@ -10,7 +10,7 @@
                 $phpFilePath = "/" . $phpFilePath;
             }
             
-            return $_SERVER["DOCUMENT_ROOT"] . "/src" . $phpFilePath;
+            return __DIR__ . "/src" . $phpFilePath;
         }
     }
 ?>

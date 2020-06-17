@@ -1,5 +1,5 @@
 Options +FollowSymLinks -MultiViews
 RewriteEngine On
-RewriteBase /
+RewriteBase /filemeup
 RewriteCond %{REQUEST_FILENAME} !public
 RewriteRule ^(.*)$ public/$1 [L]
