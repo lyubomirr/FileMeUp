@@ -1,15 +1,13 @@
 <?php
     require_once(Config::constructFilePath("/Models/JsonBehaviour.php"));
-    require_once(Config::constructFilePath("/Models/GetSetBehaviour.php"));
 
     class UserRegistration {
-        private $username;
-        private $email;
-        private $password;
-        private $passwordConfirmation;
+        public $username;
+        public $email;
+        public $password;
+        public $passwordConfirmation;
 
         use JsonBehaviour;
-        use GetSetBehaviour;
         
         public static function fromJson($json) {
             $registration = new UserRegistration();

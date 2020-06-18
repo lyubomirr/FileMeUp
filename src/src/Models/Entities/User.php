@@ -1,5 +1,6 @@
 <?php
-    require_once(Config::constructFilePath("/Models/Dto/BaseEntity.php"));
+    require_once(Config::constructFilePath("/Models/Entities/BaseEntity.php"));
+    require_once(Config::constructFilePath("/Models//GetSetBehaviour.php"));
 
     class User extends BaseEntity {
         private $username;
@@ -12,6 +13,14 @@
             $this->username = $username;
             $this->$email = $email;
             $this->password = $password;
+        }
+        
+        use GetSetBehaviour;
+
+        public static function fromAssociativeArray($array) {
+            $user = new User();
+            self::populateValuesFromArray($user, $array);
+    		return $user;
         }
     }
 ?>

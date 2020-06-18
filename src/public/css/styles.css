@@ -27,6 +27,20 @@ label {
     margin-bottom: 0.5rem;
 }
 
+.btn {
+    cursor: pointer;
+}
+
+.btn:focus {
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+    border-radius: 0px;
+    outline: none;
+    border: none;
+}
+
 .container {
     margin-left: auto;
     margin-right: auto;
@@ -119,24 +133,26 @@ hr {
     margin-bottom: 20px;
     margin-top: 2rem;
     border: 0;
-    border-top: 1px solid rgba(0,0,0,.1);
+    border-top: 1px solid rgba(0, 0, 0, .1);
 }
 
 .navbar {
     background-color: var(--main-color);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
     padding: .5rem 1rem;
+    height: 50px;
+    position: fixed;
+    top: 0;
+}
+
+.navbar-menu {
+    line-height: 35px;
 }
 
 .navbar-items {
     list-style: none;
     margin-top: 0px;
     margin-bottom: 0px;
-    margin-left: auto!important;
-    display: flex;
-    flex-direction: row;
+    display: inline-block;
 }
 
 .nav-link {
@@ -146,6 +162,13 @@ hr {
     padding-top: .3125rem;
     padding-bottom: .3125rem;
     margin-right: 1rem;
+    font-size: 1.25rem;
+}
+
+.nav-btn {
+    color: white;
+    background-color: transparent;
+    border: 0;
     font-size: 1.25rem;
 }
 

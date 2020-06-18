@@ -1,5 +1,4 @@
 <?php
-
     if($_SERVER["REQUEST_METHOD"] != "POST") {
         http_response_code(405);
         die();
@@ -11,5 +10,7 @@
 
     $searchQuery = SearchQuery::fromJson(file_get_contents('php://input'));
     $folderService = new FoldersService();
-    $folderService->getFolders($searchQuery);
+    
+    $folders = $folderService->getFolders($searchQuery);
+    echo json_encode($folders);
 ?>

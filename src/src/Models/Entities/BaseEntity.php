@@ -1,6 +1,4 @@
 <?php
-    require_once(Config::constructFilePath("/Models/GetSetBehaviour.php"));
-
     abstract class BaseEntity {
         private $id;
 
@@ -8,5 +6,9 @@
             $this->id = $id;
         }
 
-        use GetSetBehaviour;
+        protected static function populateValuesFromArray($object, $array) {
+            foreach($array as $key => $value) {
+                $object->$key = $value;
+    		}
+        }
     }

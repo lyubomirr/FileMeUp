@@ -1,3 +1,10 @@
+<?php 
+    // require_once("templates/globals.php");
+    // if(!Utils::isLoggedIn()) {
+    //     header('Location: login.php');
+    // }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,8 +21,8 @@
     <?php
         require_once("templates/header.php");
     ?>
-        <div class="container">
-            <div class="app-main">
+        <main class="container">
+            <section class="app-main">
                 <div class="row">
                     <input class="search-input w-100 h-100" type="search" placeholder="Search">
                 </div>
@@ -32,8 +39,8 @@
                         </table>
                     </div>
                 </div>
-            </div>
-        </div>
+            </section>
+        </main>
 </body>
 
 </html>

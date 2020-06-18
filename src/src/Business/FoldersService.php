@@ -9,8 +9,7 @@
             $databaseAdapter = DatabaseAdapter::getInstance();
             $selectStatement = "Select id, name, owner_id From Folders";
             
-            $result = $databaseAdapter->fetchStatement($selectStatement, null);
-            echo json_encode($result);
+            return $databaseAdapter->fetchStatement($selectStatement, null);
         }
     }
 ?>

@@ -1,5 +1,6 @@
 <?php
     require_once(Config::constructFilePath("/Models/Entities/BaseEntity.php"));
+    require_once(Config::constructFilePath("/Models/GetSetBehaviour.php"));
 
     class Folder extends BaseEntity {
         private $name;
@@ -11,5 +12,7 @@
             $this->name = $name;
             $this->$ownerId = $ownerId;
         }
+        
+        use GetSetBehaviour;
     }
 ?>

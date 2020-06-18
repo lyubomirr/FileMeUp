@@ -1,38 +1,38 @@
-import { SearchQuery } from "./searchQuery.js"
+import { SearchQuery } from "./SearchQuery.js"
 
 window.addEventListener("load", () => {
-    let searchQuery = new SearchQuery("", 100, 0); 
+    let searchQuery = new SearchQuery("", 100, 0);
     fetch("get-folders.php", {
-        method: "Post",
-        body: JSON.stringify(searchQuery)
-    })
-    .then(response => response.json())
-    .then(response => {
-        fillTable(response);
-    });
-});
-
-var searchInput = document.getElementsByClassName("search-input")[0];
-searchInput.addEventListener("keyup", function(event) {
-    if(event.key === "Enter") {
-        let searchValue = event.target.value;
-        let searchQuery = new SearchQuery(searchValue, 100, 0);
-
-        fetch("get-folders.php", {
             method: "Post",
             body: JSON.stringify(searchQuery)
         })
         .then(response => response.json())
         .then(response => {
-            updateTable(response);
+            fillTable(response);
         });
+});
+
+var searchInput = document.getElementsByClassName("search-input")[0];
+searchInput.addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+        let searchValue = event.target.value;
+        let searchQuery = new SearchQuery(searchValue, 100, 0);
+
+        fetch("get-folders.php", {
+                method: "Post",
+                body: JSON.stringify(searchQuery)
+            })
+            .then(response => response.json())
+            .then(response => {
+                updateTable(response);
+            });
     }
 });
 
 function updateTable(response) {
     var foldersTable = document.getElementById("folders_table");
     foldersTable.innerHTML = "";
-    
+
     fillTable(response);
 }
 
@@ -40,7 +40,7 @@ function fillTable(response) {
     var foldersTable = document.getElementById("folders_table");
     var tBodies = document.createElement('tbody');
 
-    if(response.length == 0) {
+    if (response.length == 0) {
         var noFoldersDiv = document.createElement("div");
         var noFoldersHeading = document.createElement("h4");
         noFoldersHeading.innerText = "There is no folders";
@@ -53,7 +53,7 @@ function fillTable(response) {
 
     for (let i = 0; i < response.length; i++) {
         const folder = response[i];
-        
+
         var tr = document.createElement('tr');
         tr.setAttribute("class", "table-row clickable-row");
         var td = document.createElement('td');
@@ -93,6 +93,6 @@ function createIconOptions() {
     editSpan.setAttribute('class', 'float-r');
     editSpan.appendChild(editIcon);
     td.appendChild(editSpan);
-    
+
     return td;
 }

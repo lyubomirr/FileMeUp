@@ -50,6 +50,9 @@
             </form>
         </section>
     </main>
+    <script src="js/Utils.js" type="text/javascript"></script>
+    <script src="js/api/ApiFacade.js" type="text/javascript"></script>
+    <script src="js/register.js" type="text/javascript"></script>
 </body>
 
 </html>
