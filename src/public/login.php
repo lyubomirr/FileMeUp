@@ -10,7 +10,7 @@
 
 <body>
     <main>
-        <section class="form-section shadow" id="login-form-section">
+        <section class="section form-section shadow" id="login-form-section">
             <h2>Login</h2>
             <section>
                 <ul id="error-list">
@@ -34,7 +34,7 @@
                 <div class="form-group aligncenter btn-form-group">
                     <input type="submit" value="Login" class="btn btn-primary w-100" />
                     <p>
-                        Don't have an account? <a href="register.php" id="register-link">Register here.</a>
+                        Don't have an account? <a href="register.php" class="link">Register here.</a>
                     </p>
                 </div>
             </form>

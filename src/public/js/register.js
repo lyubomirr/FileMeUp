@@ -6,11 +6,15 @@
         const userData = Utils.parseFormDataToObject(new FormData(formElement));
 
         ApiFacade.registerUser(userData)
-            .then(result => console.log(result))
+            .then(() => {
+                const formSection = document.getElementById("register-form-section");
+                const successSection = document.getElementById("success-section");
+
+                formSection.style.display = "none";
+                successSection.style.display = "block";
+            })
             .catch(err => {
-                for (message of err.errorMessages) {
-                    Utils.addError(message);
-                }
+                Utils.addErrors(err.errorMessages);
             });
     })
 
