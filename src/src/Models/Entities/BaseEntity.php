@@ -1,6 +1,6 @@
 <?php
     abstract class BaseEntity {
-        private $id;
+        protected $id;
 
         protected function __construct($id) {
             $this->id = $id;

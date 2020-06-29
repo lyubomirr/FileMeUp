@@ -29,12 +29,12 @@
             }
         }
         
-        public function executeCommand($sql, $parameters) {
+        public function executeCommand($sql, $parameters = null) {
             $statement = $this->connection->prepare($sql);
             return $statement->execute($parameters);
         }
 
-        public function fetchStatement($sql, $parameters) {
+        public function fetchStatement($sql, $parameters = null) {
             $statement = $this->connection->prepare($sql);
             $statement->execute($parameters);
 

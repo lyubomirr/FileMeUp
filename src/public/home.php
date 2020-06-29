@@ -13,8 +13,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - FileMeUp</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-    <script type="module" src="js/folders.js" defer></script>
     <link rel="stylesheet" href="css/styles.css" />
+    <script type="text/javascript" src="js/api/ApiFacade.js" defer></script>
+    <script type="text/javascript" src="js/folderModal.js" defer></script>
+    <script type="module" src="js/folders.js" defer></script>
 </head>
 
 <body>
@@ -24,7 +26,7 @@
         <main class="container">
             <section class="app-main">
                 <div class="row">
-                    <input class="search-input w-100 h-100" type="search" placeholder="Search">
+                    <input class="main-input w-100 h-100" id="search-input" type="search" placeholder="Search">
                 </div>
                 <hr>
                 <div class="folders-root">
@@ -39,7 +41,10 @@
                         </table>
                     </div>
                 </div>
-            </section>
+                <?php
+                    require_once("templates/modal.php");
+                ?>
+            </section>  
         </main>
 </body>
 

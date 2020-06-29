@@ -11,6 +11,11 @@
     $searchQuery = SearchQuery::fromJson(file_get_contents('php://input'));
     $folderService = new FoldersService();
     
+    $foldersSerialized = [];
     $folders = $folderService->getFolders($searchQuery);
-    echo json_encode($folders);
+    for ($i=0; $i < count($folders); $i++) { 
+        array_push($foldersSerialized, $folders[$i]->jsonSerialize());
+    }
+
+    echo json_encode($foldersSerialized);
 ?>

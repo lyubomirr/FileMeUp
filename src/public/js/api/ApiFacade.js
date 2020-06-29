@@ -6,9 +6,10 @@ class ApiFacade {
                 .then(jsonResponse => {
                     if (jsonResponse.hasOwnProperty("errorMessages")) {
                         reject(jsonResponse);
+                    } else {
+                        resolve(jsonResponse);
                     }
                 })
-                .then(result => resolve(result))
                 .catch(err => reject(err));
         })
     }
@@ -26,14 +27,36 @@ class ApiFacade {
                 .then(jsonResponse => {
                     if (jsonResponse.hasOwnProperty("errorMessages")) {
                         reject(jsonResponse);
+                    } else {
+                        resolve(jsonResponse);
                     }
                 })
-                .then(result => resolve(result))
+                .catch(err => reject(err));
+        })
+    }
+
+    static delete(endpointPath) {
+        return new Promise((resolve, reject) => {
+            fetch(endpointPath, {
+                    method: "DELETE"
+                })
+                .then(response => response.json())
+                .then(jsonResponse => {
+                    if (jsonResponse.hasOwnProperty("errorMessages")) {
+                        reject(jsonResponse);
+                    } else {
+                        resolve(jsonResponse);
+                    }
+                })
                 .catch(err => reject(err));
         })
     }
 
     static registerUser(userData) {
         return this.post("add-registration.php", userData);
+    }
+
+    static getFolders(searchQuery) {
+        return this.post("get-folders.php", searchQuery);
     }
 }

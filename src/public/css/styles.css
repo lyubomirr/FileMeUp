@@ -116,15 +116,15 @@ label {
     margin-top: 70px;
 }
 
-.search-input {
+.main-input {
     border-radius: .25rem;
     border: 1px solid #ddd;
     padding: .5rem 1rem;
-    line-height: 1.5;
-    font-size: 20px;
+    height: 2.15em !important;
+    font-size: 1.25em;
 }
 
-.search-input:focus {
+.main-input:focus {
     outline: none;
     border: 3px solid var(--main-color);
 }
@@ -170,10 +170,6 @@ hr {
     background-color: transparent;
     border: 0;
     font-size: 1.25rem;
-}
-
-.navbar-main-item {
-    margin-left: 1rem;
 }
 
 .row {
@@ -261,6 +257,103 @@ a:hover {
     border-radius: .25rem;
     cursor: pointer;
     color: white;
+}
+
+.show {
+    display: block !important;
+    opacity: 1;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: opacity 1s;
+}
+
+.modal-dialog {
+    max-width: 30%;
+    margin: 1.75em auto;
+}
+
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .3rem;
+    outline: 0;
+}
+
+.modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.modal-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 500;
+    font-family: inherit;
+    font-size: 1.5em;
+}
+
+.modal-body {
+    padding: 1rem;
+}
+
+.modal-body.form-group {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.modal-footer .btn {
+    display: inline-block;
+    font-weight: 250;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+}
+
+.modal-footer .btn-default {
+    margin-right: 0.75rem;
+    color: black;
+}
+
+.modal-footer .btn-primary {
+    color: white;
+}
+
+button.close {
+    background-color: transparent;
+    border: 0;
+    font-size: 1.5em;
+    cursor: pointer;
 }
 
 .btn-form-group {

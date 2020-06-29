@@ -1,15 +1,61 @@
 <?php 
     require_once(Config::constructFilePath("/Models/Entities/Folder.php"));
-    require_once(Config::constructFilePath("/DataAccess/DatabaseAdapter.php"));
+    require_once(Config::constructFilePath("/DataAccess/FolderRepository.php"));
+    require_once(Config::constructFilePath("/Models/Dto/FolderWithLinks.php"));
 
     class FoldersService {
+        private $folderRepository;
+
+        public function __construct()
+        {
+            $this->folderRepository = new FolderRepository();
+        }
+
         public function getFolders($searchQuery) {
             //TODO add conditions from searchQuery
 
-            $databaseAdapter = DatabaseAdapter::getInstance();
-            $selectStatement = "Select id, name, owner_id From Folders";
+            //$userId = $_SESSION['userId'];
+            $userId = 1;
+            $folders = $this->folderRepository->getFoldersByOwnerId($userId, $searchQuery);
+
+            $foldersWithLinks = [];
+            for ($i = 0; $i < count($folders); $i++) { 
+                $openLink = "get-files.php?folderId=" . $folders[$i]->id;
+                $editLink = "edit-folder.php?folderId=" . $folders[$i]->id;
+                $deleteLink = "delete-folder.php?folderId=" . $folders[$i]->id;
+
+                $folderWithLinks = new FolderWithLinks($folders[$i]->id, $folders[$i]->name, $folders[$i]->owner_id, $openLink, $editLink, $deleteLink);
+                
+                array_push($foldersWithLinks, $folderWithLinks);
+            }
             
-            return $databaseAdapter->fetchStatement($selectStatement, null);
+            return $foldersWithLinks;
+        }
+
+        public function addFolder($folderName)
+        {
+            $folder = new Folder();
+            $folder->name = $folderName;
+
+            //$userId = $_SESSION['userId'];
+            $userId = 1;
+            $folder->owner_id = $userId; 
+
+            return $this->folderRepository->addFolder($folder);
+        }
+
+        public function deleteFolder($folderId)
+        {
+            return $this->folderRepository->deleteFolder($folderId);
+        }
+
+        public function editFolder($folderId, $folderName)
+        {
+            //$userId = $_SESSION['userId'];
+            $userId = 1;
+
+            $folder = new Folder($folderId, $folderName, $userId);
+            return $this->folderRepository->updateFolder($folder);
         }
     }
 ?>
