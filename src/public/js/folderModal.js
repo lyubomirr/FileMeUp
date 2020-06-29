@@ -10,7 +10,7 @@ function addEditModalEvent(response) {
             
         element.addEventListener('click', (event) => {
             var editButton = event.target;
-            var folderName = editButton.parentNode.parentNode.parentNode.firstChild.firstChild.textContent;
+            var folderName = response[i].name;
 
             showFolderModal("Edit folder name", folderName, response[i].editLink);
         });
