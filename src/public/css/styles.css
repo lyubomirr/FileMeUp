@@ -221,14 +221,17 @@ a:hover {
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgba(0, 0, 0, 0.19);
 }
 
+.section {
+    background-color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+}
+
 .form-section {
     max-width: 500px;
     margin: 0 auto;
     margin-top: 5rem;
     margin-bottom: 5rem;
-    background-color: #fff;
-    padding: 1rem 2rem;
-    border-radius: 10px;
 }
 
 .form-section>form {
@@ -387,6 +390,18 @@ button.close {
     margin-top: 5rem;
 }
 
-#register-link {
+.link {
     color: var(--main-color);
+}
+
+#success-section {
+    text-align: center;
+    margin: 0 auto;
+    width: 50%;
+    margin-top: 15rem;
+    display: none;
+}
+
+#success-section a {
+    font-size: 1.1rem;
 }

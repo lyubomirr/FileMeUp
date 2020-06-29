@@ -4,13 +4,15 @@ class Utils {
         formData.forEach((value, key) => { obj[key] = value });
         return obj;
     }
-
-    static addError(errorMsg) {
+    static addErrors(errorMessages) {
         const errorList = document.getElementById("error-list");
-        const errorItem = document.createElement("li");
+        errorList.innerHTML = "";
 
-        errorItem.append(errorMsg);
-        errorList.appendChild(errorItem);
+        for (let message of errorMessages) {
+            const errorItem = document.createElement("li");
+            errorItem.append(message);
+            errorList.appendChild(errorItem);
+        }
 
         window.scrollTo(0, 0);
     }
