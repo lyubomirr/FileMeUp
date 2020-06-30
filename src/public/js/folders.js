@@ -46,17 +46,20 @@ function fillTable(response) {
             
             tableRowsHtml = tableRowsHtml + 
             "<tr class='table-row clickable-row'>" +
+                "<td class='folder-icon table-data'>" +
+                    "<i class='fa fa-folder'></i>" +
+                "</td>" +
                 "<td class='table-data'>" + 
                     "<a href='" + folder.openLink + "' class='w-100 h-100'>" + folder.name + "</a>" + 
-                    "</td>" + 
-                    "<td class='icon-options table-data'>" + 
+                "</td>" + 
+                "<td class='icon-options table-data'>" + 
                     "<span class='float-r'>" + 
                     "<i class='fas fa-trash-alt option-icon' title='Delete folder'></i>" + 
                     "</span>" + 
                     "<span class='float-r'>" + 
                     "<i class='fas fa-edit option-icon' title='Edit folder name'></i>" + 
                     "</span>" + 
-                    "</td>" +
+                "</td>" +
             "</tr>";
         }
     }

@@ -64,6 +64,16 @@ label {
     padding: .75rem;
 }
 
+.folder-icon {
+    width: 5%;
+    padding-right: 0 !important;
+}
+
+.fa-folder {
+    font-size: 1.5em;
+    color: var(--main-color);
+}
+
 .table-data a {
     text-decoration: none;
     font-size: 1.15em;
