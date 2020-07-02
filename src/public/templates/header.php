@@ -4,6 +4,14 @@
         <div class="float-r navbar-menu">
             <ul class="navbar-items">
                 <li class="navbar-item">
+                    <?php 
+                        require_once("templates/globals.php");                        
+                        if(Utils::isLoggedIn()) {
+                            echo "Hello, " . Utils::getUsername();
+                        }
+                    ?>
+                </li>
+                <li class="navbar-item">
                 <form action="logout.php" method="POST">
                     <button type="submit" class="btn nav-btn">Logout</button>
                 </form>

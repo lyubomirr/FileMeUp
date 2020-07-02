@@ -25,6 +25,10 @@
         }
 
         protected static function validateEmail($value, $fieldName, &$errors) {
+            if($value == null) {
+                return;
+            }
+            
             if(!filter_var($value, FILTER_VALIDATE_EMAIL)) {
                 array_push($errors, "The email in field '${fieldName}' is invalid.");
             }

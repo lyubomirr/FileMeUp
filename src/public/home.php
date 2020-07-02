@@ -1,8 +1,9 @@
 <?php 
-    // require_once("templates/globals.php");
-    // if(!Utils::isLoggedIn()) {
-    //     header('Location: login.php');
-    // }
+    require_once("templates/globals.php");
+    session_start();
+    if(!Utils::isLoggedIn()) {
+        header('Location: login.php');
+    }
 ?>
 
 <!DOCTYPE html>

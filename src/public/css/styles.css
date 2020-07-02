@@ -180,6 +180,11 @@ hr {
     background-color: transparent;
     border: 0;
     font-size: 1.25rem;
+    transition: 0.3s ease;
+}
+
+.nav-btn:hover {
+    color: var(--second-color);
 }
 
 .row {
@@ -301,7 +306,7 @@ a:hover {
     pointer-events: auto;
     background-color: #fff;
     background-clip: padding-box;
-    border: 1px solid rgba(0,0,0,.2);
+    border: 1px solid rgba(0, 0, 0, .2);
     border-radius: .3rem;
     outline: 0;
 }
@@ -379,6 +384,11 @@ button.close {
 
 .btn-primary {
     background-color: var(--main-color);
+    transition: 0.3s ease;
+}
+
+.btn-primary:hover {
+    color: var(--second-color);
 }
 
 .required {
@@ -414,4 +424,11 @@ button.close {
 
 #success-section a {
     font-size: 1.1rem;
+}
+
+.navbar-item {
+    font-size: 1.25rem;
+    margin-right: 1rem;
+    color: white;
+    display: inline-block;
 }
