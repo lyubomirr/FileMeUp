@@ -14,8 +14,7 @@
         public function getFolders($searchQuery) {
             //TODO add conditions from searchQuery
 
-            //$userId = $_SESSION['userId'];
-            $userId = 1;
+            $userId = $_SESSION['userId'];
             $folders = $this->folderRepository->getFoldersByOwnerId($userId, $searchQuery);
 
             $foldersWithLinks = [];
@@ -24,7 +23,7 @@
                 $editLink = "edit-folder.php?folderId=" . $folders[$i]->id;
                 $deleteLink = "delete-folder.php?folderId=" . $folders[$i]->id;
 
-                $folderWithLinks = new FolderWithLinks($folders[$i]->id, $folders[$i]->name, $folders[$i]->owner_id, $openLink, $editLink, $deleteLink);
+                $folderWithLinks = new FolderWithLinks($folders[$i]->id, $folders[$i]->name, $folders[$i]->ownerId, $openLink, $editLink, $deleteLink);
                 
                 array_push($foldersWithLinks, $folderWithLinks);
             }
@@ -37,9 +36,8 @@
             $folder = new Folder();
             $folder->name = $folderName;
 
-            //$userId = $_SESSION['userId'];
-            $userId = 1;
-            $folder->owner_id = $userId; 
+            $userId = $_SESSION['userId'];
+            $folder->ownerId = $userId; 
 
             return $this->folderRepository->addFolder($folder);
         }
@@ -51,8 +49,7 @@
 
         public function editFolder($folderId, $folderName)
         {
-            //$userId = $_SESSION['userId'];
-            $userId = 1;
+            $userId = $_SESSION['userId'];
 
             $folder = new Folder($folderId, $folderName, $userId);
             return $this->folderRepository->updateFolder($folder);

@@ -5,5 +5,4 @@
         public $success = true;
         use JsonBehaviour;
     }
-    
 ?>

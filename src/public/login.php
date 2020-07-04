@@ -1,3 +1,11 @@
+<?php 
+     require_once("templates/globals.php");
+     session_start();
+     if(Utils::isLoggedIn()) {
+         header('Location: home.php');
+     }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

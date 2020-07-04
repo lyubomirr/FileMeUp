@@ -5,13 +5,13 @@
 
     class Folder extends BaseEntity {
         private $name;
-        private $owner_id;
+        private $ownerId;
 
-        public function __construct($id = 0, $name = "", $owner_id = 0) {
+        public function __construct($id = 0, $name = "", $ownerId = 0) {
             parent::__construct($id);
             
             $this->name = $name;
-            $this->owner_id = $owner_id;
+            $this->ownerId = $ownerId;
         }
 
         use GetSetBehaviour;

@@ -14,23 +14,23 @@ CREATE TABLE `Users` (
 CREATE TABLE `Folders` (
   id int(11) NOT NULL AUTO_INCREMENT,
   name varchar(100) NOT NULL,
-  owner_id int(11) NOT NULL,
+  ownerId int(11) NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (owner_id) REFERENCES Users(id)
+  FOREIGN KEY (ownerId) REFERENCES Users(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `Files` (
   id int(11) NOT NULL AUTO_INCREMENT,
   name varchar(100) NOT NULL,
-  folder_id int(11) NOT NULL,
+  folderId int(11) NOT NULL,
   description varchar(255) NULL,
   size int(11) NOT NULL,
   extension varchar(10) NULL,
   location varchar(180) NOT NULL,
-  store_date datetime NOT NULL,
-  last_modified_date datetime NULL,
+  storeDate datetime NOT NULL,
+  lastModifiedDate datetime NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (folder_id) REFERENCES Folders(id)
+  FOREIGN KEY (folderId) REFERENCES Folders(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 COMMIT;

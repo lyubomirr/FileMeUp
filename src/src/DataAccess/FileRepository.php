@@ -11,28 +11,28 @@
         }
 
         public function addFile($file) {
-            $sql = "INSERT INTO {$this->tableName}(name, folder_id, description, size, location, store_date, last_modified_date) 
-                    VALUES (:name, :folder_id, :description, :size, :location, :store_date, :last_modified_date) ";
+            $sql = "INSERT INTO {$this->tableName}(name, folderId, description, size, location, storeDate, lastModifiedDate) 
+                    VALUES (:name, :folderId, :description, :size, :location, :storeDate, :lastModifiedDate) ";
             
             return $this->databaseAdapter->executeCommand($sql, [
                 "name" => $file->name,
-                "folder_id" => $file->folder_id,
+                "folderId" => $file->folderId,
                 "description" => $file->description,
                 "size" => $file->size,
                 "location" => $file->location,
-                "store_date" => $file->store_date,
-                "last_modified_date" => $file->last_modified_date
+                "storeDate" => $file->storeDate,
+                "lastModifiedDate" => $file->lastModifiedDate
             ]);
         }
 
         public function getFilesByFolderId($folderId, $searchQuery = null) {
-            $sql = "SELECT * FROM {$this->tableName} WHERE folder_id = :folder_id";
+            $sql = "SELECT * FROM {$this->tableName} WHERE folderId = :folderId";
             
             if($searchQuery != null && $searchQuery->searchValue != "") {
                 $sql = $sql . " && name LIKE '{$searchQuery->searchValue}%'";
             }
 
-            $result = $this->databaseAdapter->fetchStatement($sql, ["folder_id" => $folderId]);
+            $result = $this->databaseAdapter->fetchStatement($sql, ["folderId" => $folderId]);
             
             $files = [];
             if (count($result) == 0) {
@@ -60,18 +60,19 @@
 
         public function updateFile($file) {
             $sql = "UPDATE {$this->tableName} 
-                    SET name = :name, folder_id = :folder_id, description = :description, size = :size, location = :location, store_date = :store_date, last_modified_date = :last_modified_date
+                    SET name = :name, folderId = :folderId, description = :description, 
+                    size = :size, location = :location, storeDate = :storeDate, lastModifiedDate = :lastModifiedDate
                     WHERE id = :id";
             
             return $this->databaseAdapter->executeCommand($sql, [
                 "id" => $file->id,
                 "name" => $file->name,
-                "folder_id" => $file->folder_id,
+                "folderId" => $file->folderId,
                 "description" => $file->description,
                 "size" => $file->size,
                 "location" => $file->location,
-                "store_date" => $file->store_date,
-                "last_modified_date" => $file->last_modified_date
+                "storeDate" => $file->storeDate,
+                "lastModifiedDate" => $file->lastModifiedDate
             ]);
         }
 

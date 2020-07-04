@@ -1,7 +1,9 @@
 class ApiFacade {
-    static get(endpointPath) {
+    static get(endpointPath, queryParams) {
+        const path = this.constructPath(endpointPath, queryParams);
+
         return new Promise((resolve, reject) => {
-            fetch(endpointPath)
+            fetch(path)
                 .then(response => response.json())
                 .then(jsonResponse => {
                     if (jsonResponse.hasOwnProperty("errorMessages")) {
@@ -12,6 +14,15 @@ class ApiFacade {
                 })
                 .catch(err => reject(err));
         })
+    }
+
+    static constructPath(endpointPath, queryParams) {
+        const searchParams = new URLSearchParams("");
+        for (const [key, value] of Object.entries(queryParams)) {
+            searchParams.set(key, value);
+        }
+
+        return endpointPath + "?" + searchParams.toString();
     }
 
     static post(endpointPath, body) {
@@ -66,5 +77,9 @@ class ApiFacade {
 
     static getFiles(folderId) {
         return this.post("get-files.php", folderId);
+    }
+
+    static getFileById(fileId) {
+        return this.get("get-file.php", { fileId: fileId });
     }
 }

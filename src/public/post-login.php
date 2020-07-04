@@ -15,10 +15,10 @@
     $userService = new UsersService();
     
     try {
-        $userService->login($login);
-        
+        $user = $userService->login($login);
         session_start();
-        $_SESSION["username"] = $login->username;
+        $_SESSION["username"] = $user->username;
+        $_SESSION["userId"] = $user->id;
 
         echo json_encode(new SuccessfulCommandResult(true));
 

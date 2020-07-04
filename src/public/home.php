@@ -1,9 +1,7 @@
 <?php 
     require_once("templates/globals.php");
     session_start();
-    if(!Utils::isLoggedIn()) {
-        header('Location: login.php');
-    }
+    Utils::checkSession();
 ?>
 
 <!DOCTYPE html>
@@ -26,18 +24,18 @@
     ?>
         <main class="container">
             <section class="app-main">
-                <div class="row">
+                <div>
                     <input class="main-input w-100 h-100" id="search-input" type="search" placeholder="Search">
                 </div>
                 <hr>
-                <div class="folders-root">
+                <div class="folders-root section border">
                     <div class="information-row">
-                        <h3 class="heading folder-heading">Folders</h3>
+                        <h3 class="heading folders-heading">Folders</h3>
                         <span>
                             <i class="fas fa-plus-square add-icon" title="Add folder"></i>
                         </span>
                     </div>
-                    <div class="row">
+                    <div>
                         <table class="table" id="folders_table">
                         </table>
                     </div>

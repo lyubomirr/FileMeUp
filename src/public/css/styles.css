@@ -4,6 +4,7 @@
     --second-color: #fc4a1a;
     --third-color: #f7b733;
     --fourth-color: #dfdce3;
+    --text-color: #1c4e46;
 }
 
 body {
@@ -27,6 +28,16 @@ label {
     margin-bottom: 0.5rem;
 }
 
+dt {
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+dd {
+    margin-left: 0;
+    margin-bottom: 1rem;
+}
+
 .btn {
     cursor: pointer;
 }
@@ -45,6 +56,12 @@ label {
     margin-left: auto;
     margin-right: auto;
     max-width: 60%;
+}
+
+.container-large {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 70%;
 }
 
 .table {
@@ -76,9 +93,12 @@ label {
 
 .table-data a {
     text-decoration: none;
-    font-size: 1.15em;
-    color: var(--main-color);
+    color: var(--text-color);
     display: block;
+}
+
+.border {
+    border: 1px solid #ddd;
 }
 
 .no-folders {
@@ -119,7 +139,7 @@ label {
 
 .fas {
     cursor: pointer;
-    font-size: 1.5em;
+    font-size: 1.3em;
 }
 
 .app-main {
@@ -131,7 +151,7 @@ label {
     border: 1px solid #ddd;
     padding: .5rem 1rem;
     height: 2.15em !important;
-    font-size: 1.25em;
+    font-size: 1.1em;
 }
 
 .main-input:focus {
@@ -169,26 +189,21 @@ hr {
     display: inline-block;
     text-decoration: none;
     color: white;
-    padding-top: .3125rem;
-    padding-bottom: .3125rem;
+    line-height: calc(50px - 1rem);
     margin-right: 1rem;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
 }
 
 .nav-btn {
     color: white;
     background-color: transparent;
     border: 0;
-    font-size: 1.25rem;
-    transition: 0.3s ease;
+    font-size: 1.1rem;
+    transition: 0.2s ease;
 }
 
 .nav-btn:hover {
     color: var(--second-color);
-}
-
-.row {
-    height: 42px;
 }
 
 .clickable-row:hover {
@@ -201,11 +216,15 @@ hr {
     padding: 0px 15px;
 }
 
-.information-row .heading {
-    font-size: 1.75rem;
-    font-weight: 500;
+.folders-heading,
+.files-heading {
     display: inline-block;
-    color: #1c4e46;
+}
+
+.heading {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--text-color);
     margin-bottom: 15px;
     margin-right: 10px;
 }
@@ -213,10 +232,11 @@ hr {
 .add-icon {
     font-size: 1.73em;
     color: var(--main-color);
+    transition: 0.2s ease;
 }
 
 .add-icon:hover {
-    color: #41b2a2;
+    color: var(--second-color);
     cursor: pointer;
 }
 
@@ -324,7 +344,7 @@ a:hover {
     margin-bottom: 0;
     font-weight: 500;
     font-family: inherit;
-    font-size: 1.5em;
+    font-size: 1.5rem;
 }
 
 .modal-body {
@@ -384,7 +404,7 @@ button.close {
 
 .btn-primary {
     background-color: var(--main-color);
-    transition: 0.3s ease;
+    transition: 0.2s ease;
 }
 
 .btn-primary:hover {
@@ -427,7 +447,7 @@ button.close {
 }
 
 .navbar-item {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     margin-right: 1rem;
     color: white;
     display: inline-block;
@@ -441,25 +461,29 @@ button.close {
     grid-gap: 1em;
 }
 
-@media (max-width: 500px), (min-width: 300px) {
+@media (max-width: 500px),
+(min-width: 300px) {
     .grid {
         grid-template-columns: repeat(1, 1fr);
     }
 }
 
-@media (max-width: 750px), (min-width: 501px) {
+@media (max-width: 750px),
+(min-width: 501px) {
     .grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 1000px), (min-width: 751px) {
+@media (max-width: 1000px),
+(min-width: 751px) {
     .grid {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
-@media (max-width: 1250px), (min-width: 1001px) { 
+@media (max-width: 1250px),
+(min-width: 1001px) {
     .grid {
         grid-template-columns: repeat(4, 1fr);
     }
@@ -484,4 +508,21 @@ button.close {
 
 .file-thumb {
     border: 1px solid lightgrey;
+}
+
+#file-info-section {
+    display: inline-block;
+    width: 40%;
+    vertical-align: top;
+}
+
+#file-view-section {
+    display: inline-block;
+    width: 58%;
+    vertical-align: top;
+    text-align: center;
+}
+
+#file-name {
+    font-weight: bold;
 }

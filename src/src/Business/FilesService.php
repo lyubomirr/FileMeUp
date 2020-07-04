@@ -8,14 +8,12 @@
         private $fileRepository;
         private $folderRepository;
 
-        public function __construct()
-        {
+        public function __construct() {
             $this->fileRepository = new FileRepository();
             $this->folderRepository = new FolderRepository();
         }
 
-        private function getThumbnail($filePath)
-        {
+        private function getThumbnail($filePath) {
             $serverPath = $_SERVER["DOCUMENT_ROOT"];
             $filePath = $serverPath . "/" . $filePath;
 
@@ -36,13 +34,12 @@
         }
 
         public function getFiles($folderId) {
-            //$userId = $_SESSION['userId'];
-            $userId = 1;
+            $userId = $_SESSION['userId'];
 
             $folders = $this->folderRepository->getFoldersByOwnerId($userId);
 
             for ($i=0; $i < count($folders); $i++) { 
-                if($folders[$i]->id == $folderId && $folders[$i]->owner_id != $userId) {
+                if($folders[$i]->id == $folderId && $folders[$i]->ownerId != $userId) {
                     die();
                 }
             }
@@ -63,22 +60,23 @@
             return $filesResult;
         }
         
-        public function addFile()
-        {
+        public function addFile() {
         }
 
-        public function deleteFile($fileId)
-        {
+        public function deleteFile($fileId) {
             return $this->fileRepository->deleteFile($fileId);
         }
 
-        public function editFile($fileId)
-        {
+        public function editFile($fileId) {
             //$userId = $_SESSION['userId'];
             $userId = 1;
 
             $file = new File($fileId);
             return $this->fileRepository->updateFile($file);
+        }
+
+        public function getFileById($fileId) {
+            return $this->fileRepository->getFile($fileId);
         }
     }
 ?>

@@ -7,6 +7,7 @@
     require_once("templates/globals.php");
     require_once(Config::constructFilePath("/Models/Dto/SearchQuery.php")); 
     require_once(Config::constructFilePath("/Business/FoldersService.php")); 
+    session_start();
 
     $searchQuery = SearchQuery::fromJson(file_get_contents('php://input'));
     $folderService = new FoldersService();

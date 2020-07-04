@@ -4,6 +4,7 @@ class Utils {
         formData.forEach((value, key) => { obj[key] = value });
         return obj;
     }
+
     static addErrors(errorMessages) {
         const errorList = document.getElementById("error-list");
         errorList.innerHTML = "";
@@ -15,5 +16,10 @@ class Utils {
         }
 
         window.scrollTo(0, 0);
+    }
+
+    static isEmptyNullOrUndefined(value) {
+        return value == undefined || value == null || Object.keys(value).length === 0;
+
     }
 }

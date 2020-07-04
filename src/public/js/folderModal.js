@@ -4,16 +4,16 @@ document.getElementsByClassName("add-icon")[0].addEventListener('click', () => {
 
 function addEditModalEvent(response) {
     var editButtons = document.getElementsByClassName("fa-edit")
-    
+
     for (let i = 0; i < editButtons.length; i++) {
         const editButton = editButtons[i];
-            
+
         editButton.addEventListener('click', (event) => {
             var folderName = response[i].name;
 
             showFolderModal("Edit folder name", folderName, response[i].editLink);
         });
-    }    
+    }
 }
 
 function showFolderModal(modalTitle, modalBodyText, formAction) {
@@ -22,7 +22,7 @@ function showFolderModal(modalTitle, modalBodyText, formAction) {
 
     var title = folderModal.querySelector(".modal-title");
     title.textContent = modalTitle;
-        
+
     var bodyText = document.getElementById("folder-name-input");
     bodyText.value = modalBodyText;
 
@@ -33,21 +33,21 @@ function showFolderModal(modalTitle, modalBodyText, formAction) {
 
 function addConfirmModalEvent(response) {
     var deleteButtons = document.getElementsByClassName("fa-trash-alt")
-    
+
     for (let i = 0; i < deleteButtons.length; i++) {
         const deleteButton = deleteButtons[i];
-            
+
         deleteButton.addEventListener('click', (event) => {
             var folderModal = document.getElementById("confirm-modal");
             folderModal.classList.add("show");
-            
+
             var folderName = response[i].name;
             var confirmModalBody = folderModal.querySelector(".modal-dialog .modal-content .modal-body");
             confirmModalBody.innerHTML = "<p> Are you sure you want to delete '" + folderName + "' ?";
             var confirmButton = document.getElementById("confirm");
             confirmButton.setAttribute("onclick", "deleteFolder('" + response[i].deleteLink + "');");
         });
-    }    
+    }
 }
 
 function deleteFolder(deleteLink) {

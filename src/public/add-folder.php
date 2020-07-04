@@ -6,6 +6,7 @@
 
     require_once("templates/globals.php");
     require_once(Config::constructFilePath("/Business/FoldersService.php")); 
+    session_start();
 
     $folderName = $_POST['name'];
     $folderService = new FoldersService();

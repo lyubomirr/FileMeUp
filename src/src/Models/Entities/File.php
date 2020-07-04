@@ -3,25 +3,36 @@
     require_once(Config::constructFilePath("/Models/GetSetBehaviour.php"));
     require_once(Config::constructFilePath("/Models/JsonBehaviour.php"));
 
-    class File extends BaseEntity {
+    class File extends BaseEntity implements JsonSerializable {
         private $name;
-        private $folder_id;
+        private $folderId;
         private $description;
         private $size;
         private $location;
-        private $store_date;
-        private $last_modified_date;
+        private $storeDate;
+        private $lastModifiedDate;
+        private $extension;
 
-        public function __construct($id = 0, $name = "", $folder_id = 0, $description = "", $size = 0, $location = "", $store_date = "", $last_modified_date = "") {
+        public function __construct(
+            $id = 0, 
+            $name = "", 
+            $folderId = 0, 
+            $description = "", 
+            $size = 0, 
+            $location = "", 
+            $storeDate = "", 
+            $lastModifiedDate = "", 
+            $extension = "") {
             parent::__construct($id);
             
             $this->name = $name;
-            $this->folder_id = $folder_id;
+            $this->folderId = $folderId;
             $this->description = $description;
             $this->size = $size;
             $this->location = $location;
-            $this->store_date = $store_date;
-            $this->last_modified_date = $last_modified_date;
+            $this->storeDate = $storeDate;
+            $this->lastModifiedDate = $lastModifiedDate;
+            $this->extension = $extension;
         }
 
         use GetSetBehaviour;

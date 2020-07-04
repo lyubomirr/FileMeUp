@@ -54,6 +54,8 @@
             if(!password_verify($userLogin->password, $user->password)) {
                 throw new AuthenticationException("Your password is incorrect.");
             }
+
+            return $user;
         }
     }
 ?>
