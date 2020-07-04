@@ -59,4 +59,8 @@ class ApiFacade {
     static getFolders(searchQuery) {
         return this.post("get-folders.php", searchQuery);
     }
+
+    static getFiles(folderId) {
+        return this.post("get-files.php", folderId);
+    }
 }

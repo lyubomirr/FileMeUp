@@ -19,10 +19,10 @@
             ]);
         }
 
-        public function getFoldersByOwnerId($ownerId, $searchQuery) {
+        public function getFoldersByOwnerId($ownerId, $searchQuery = null) {
             $sql = "SELECT * FROM {$this->tableName} WHERE owner_id = :owner_id";
             
-            if($searchQuery->searchValue != "") {
+            if($searchQuery != null && $searchQuery->searchValue != "") {
                 $sql = $sql . " && name LIKE '{$searchQuery->searchValue}%'";
             }
 

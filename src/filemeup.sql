@@ -19,4 +19,18 @@ CREATE TABLE `Folders` (
   FOREIGN KEY (owner_id) REFERENCES Users(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `Files` (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  name varchar(100) NOT NULL,
+  folder_id int(11) NOT NULL,
+  description varchar(255) NULL,
+  size int(11) NOT NULL,
+  extension varchar(10) NULL,
+  location varchar(180) NOT NULL,
+  store_date datetime NOT NULL,
+  last_modified_date datetime NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (folder_id) REFERENCES Folders(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 COMMIT;

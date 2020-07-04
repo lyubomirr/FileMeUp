@@ -33,11 +33,11 @@ function updateTable(response) {
 function fillTable(response) {
     var foldersTable = document.getElementById("folders_table");
     var tBodies = document.createElement('tbody');
-
+    
     var tableRowsHtml = "";
     if (response.length == 0) {
         tableRowsHtml = "<tr class='no-folders'>" +
-                            "<td><h4>There is no folders</h4></td>" + 
+                            "<td><h4>There is no folders! Click the add icon to add a new folders.</h4></td>" + 
                         "</tr>";
     } else {
 

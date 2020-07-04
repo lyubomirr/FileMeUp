@@ -20,7 +20,7 @@
 
             $foldersWithLinks = [];
             for ($i = 0; $i < count($folders); $i++) { 
-                $openLink = "get-files.php?folderId=" . $folders[$i]->id;
+                $openLink = "folder.php?folderId=" . $folders[$i]->id;
                 $editLink = "edit-folder.php?folderId=" . $folders[$i]->id;
                 $deleteLink = "delete-folder.php?folderId=" . $folders[$i]->id;
 

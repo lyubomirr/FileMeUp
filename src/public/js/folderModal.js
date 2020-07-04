@@ -6,10 +6,9 @@ function addEditModalEvent(response) {
     var editButtons = document.getElementsByClassName("fa-edit")
     
     for (let i = 0; i < editButtons.length; i++) {
-        const element = editButtons[i];
+        const editButton = editButtons[i];
             
-        element.addEventListener('click', (event) => {
-            var editButton = event.target;
+        editButton.addEventListener('click', (event) => {
             var folderName = response[i].name;
 
             showFolderModal("Edit folder name", folderName, response[i].editLink);
@@ -36,14 +35,13 @@ function addConfirmModalEvent(response) {
     var deleteButtons = document.getElementsByClassName("fa-trash-alt")
     
     for (let i = 0; i < deleteButtons.length; i++) {
-        const element = deleteButtons[i];
+        const deleteButton = deleteButtons[i];
             
-        element.addEventListener('click', (event) => {
+        deleteButton.addEventListener('click', (event) => {
             var folderModal = document.getElementById("confirm-modal");
             folderModal.classList.add("show");
             
-            var editButton = event.target;
-            var folderName = editButton.parentNode.parentNode.parentNode.firstChild.firstChild.textContent;
+            var folderName = response[i].name;
             var confirmModalBody = folderModal.querySelector(".modal-dialog .modal-content .modal-body");
             confirmModalBody.innerHTML = "<p> Are you sure you want to delete '" + folderName + "' ?";
             var confirmButton = document.getElementById("confirm");
