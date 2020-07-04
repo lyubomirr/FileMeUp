@@ -56,6 +56,10 @@ class ApiFacade {
         return this.post("add-registration.php", userData);
     }
 
+    static login(userData) {
+        return this.post("post-login.php", userData);
+    }
+
     static getFolders(searchQuery) {
         return this.post("get-folders.php", searchQuery);
     }

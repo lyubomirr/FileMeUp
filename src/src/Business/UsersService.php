@@ -2,6 +2,7 @@
     require_once(Config::constructFilePath("/Models/Dto/UserRegistration.php"));
     require_once(Config::constructFilePath("/Models/Entities/User.php"));
     require_once(Config::constructFilePath("/Models/Dto/ErrorResult.php"));
+    require_once(Config::constructFilePath("/Models/Exceptions/AuthenticationException.php"));
     require_once(Config::constructFilePath("/DataAccess/UsersRepository.php"));
     
     class UsersService {
@@ -41,6 +42,17 @@
                 return new ErrorResult([
                     "There was a problem with the database. Please try again later!"
                 ]);
+            }
+        }
+
+        public function login($userLogin) {
+            $user = $this->usersRepository->getUser($userLogin->username);
+            if(is_null($user)) {
+                throw new AuthenticationException("No user with this username registered.");
+            }
+    
+            if(!password_verify($userLogin->password, $user->password)) {
+                throw new AuthenticationException("Your password is incorrect.");
             }
         }
     }
