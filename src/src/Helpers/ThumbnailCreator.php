@@ -6,7 +6,13 @@
             $fileNameNoExt = pathinfo($src, PATHINFO_FILENAME);
             $thumbnailName = $fileNameNoExt . "_thumb" . ".png";
 
-            $dest = Utils::combinePaths(array(Config::getPublicPath(), "thumbnails", $thumbnailName));
+            $thumbnailsFolder = Utils::combinePaths(array(Config::getPublicPath(), "thumbnails")); 
+
+            if(!file_exists($thumbnailsFolder)) {
+                mkdir($thumbnailsFolder);
+            }
+
+            $dest = Utils::combinePaths(array($thumbnailsFolder, $thumbnailName));
             $src = Utils::combinePaths(array(Config::getUploadsPath(), $src));
 
             $type = exif_imagetype($src);
