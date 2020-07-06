@@ -13,9 +13,6 @@
     <title>Home - FileMeUp</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css" />
-    <script type="text/javascript" src="js/api/ApiFacade.js" defer></script>
-    <script type="text/javascript" src="js/folderModal.js" defer></script>
-    <script type="module" src="js/folders.js" defer></script>
 </head>
 
 <body>
@@ -45,6 +42,12 @@
                 ?>
             </section>  
         </main>
+
+        <script type="text/javascript" src="js/searchQuery.js"></script>
+        <script type="text/javascript" src="js/Utils.js"></script>
+        <script type="text/javascript" src="js/api/ApiFacade.js"></script>
+        <script type="text/javascript" src="js/folderModal.js"></script>
+        <script type="text/javascript" src="js/folders.js"></script>
 </body>
 
 </html>

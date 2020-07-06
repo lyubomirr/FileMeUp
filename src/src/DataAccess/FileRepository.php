@@ -2,6 +2,7 @@
     require_once(Config::constructFilePath("/DataAccess/DatabaseAdapter.php"));
     require_once(Config::constructFilePath("/Models/Entities/File.php"));
     require_once(Config::constructFilePath("/Models/Entities/Folder.php"));
+    require_once(Config::constructFilePath("/Models/Exceptions/DatabaseExecutionException.php"));
 
     class FileRepository {
         private $databaseAdapter;
@@ -15,7 +16,7 @@
             $sql = "INSERT INTO `{$this->tableName}` (`name`, `folderId`, `description`, `size`, `location`, `storeDate`, `lastModifiedDate`) 
                     VALUES (:name, :folderId, :description, :size, :location, :storeDate, :lastModifiedDate) ";
             
-            return $this->databaseAdapter->executeCommand($sql, [
+            $result = $this->databaseAdapter->executeCommand($sql, [
                 "name" => $file->name,
                 "folderId" => $file->folderId,
                 "description" => $file->description,
@@ -24,6 +25,12 @@
                 "storeDate" => $file->storeDate,
                 "lastModifiedDate" => $file->lastModifiedDate
             ]);
+
+            if(!$result) {
+                throw new DatabaseExecutionException("Could not insert file with name" . $file->name);
+            }
+
+            return $this->databaseAdapter->getLastInsertId();
         }
 
         public function getFilesByFolderId($folderId, $searchQuery = null) {

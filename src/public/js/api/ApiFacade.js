@@ -46,9 +46,11 @@ class ApiFacade {
         })
     }
 
-    static delete(endpointPath) {
+    static delete(endpointPath, queryParams) {
+        const path = this.constructPath(endpointPath, queryParams);
+
         return new Promise((resolve, reject) => {
-            fetch(endpointPath, {
+            fetch(path, {
                     method: "DELETE"
                 })
                 .then(response => response.json())
@@ -72,11 +74,32 @@ class ApiFacade {
     }
 
     static getFolders(searchQuery) {
-        return this.post("get-folders.php", searchQuery);
+        if (searchQuery) {
+            return this.get("get-folders.php", { 
+                searchValue: searchQuery.searchValue, 
+                start: searchQuery.start,
+                count: searchQuery.count });
+        }
+        return this.get("get-folders.php", {});
     }
 
-    static getFiles(folderId) {
-        return this.post("get-files.php", folderId);
+    static getFiles(folderId, searchQuery) {
+        if (searchQuery) {
+            return this.get("get-files.php", { 
+                folderId, folderId, 
+                searchValue: searchQuery.searchValue, 
+                start: searchQuery.start,
+                count: searchQuery.count });
+        }
+        return this.get("get-files.php", { folderId, folderId });
+    }
+
+    static deleteFolder(folderId) {
+        return this.delete("delete-folder.php", { folderId: folderId });
+    } 
+
+    static openFolder(folderId) {
+
     }
 
     static getFileById(fileId) {

@@ -11,8 +11,7 @@
     $folderService = new FoldersService();
     
     $folderId = $_GET['folderId'];
-    $folderName = $_POST['name'];
+    $folderName = json_decode(file_get_contents('php://input'), true);
     $result = $folderService->editFolder($folderId, $folderName);
-
-    header('Location: home.php');
+    echo json_encode($result);
 ?>

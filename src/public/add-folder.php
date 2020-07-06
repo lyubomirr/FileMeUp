@@ -8,11 +8,9 @@
     require_once(Config::constructFilePath("/Business/FoldersService.php")); 
     session_start();
 
-    $folderName = $_POST['name'];
+    $folderName = json_decode(file_get_contents('php://input'), true);
     $folderService = new FoldersService();
     
     $result = $folderService->addFolder($folderName);
     echo json_encode($result);
-    
-    header('Location: home.php');
 ?>

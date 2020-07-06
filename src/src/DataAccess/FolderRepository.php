@@ -1,6 +1,7 @@
 <?php
     require_once(Config::constructFilePath("/DataAccess/DatabaseAdapter.php"));
     require_once(Config::constructFilePath("/Models/Entities/Folder.php"));
+    require_once(Config::constructFilePath("/Models/Exceptions/DatabaseExecutionException.php"));
 
     class FolderRepository {
         private $databaseAdapter;
@@ -13,10 +14,16 @@
         public function addFolder($folder) {
             $sql = "INSERT INTO `{$this->tableName}` (`name`, `ownerId`) VALUES (:name, :ownerId)";
             
-            return $this->databaseAdapter->executeCommand($sql, [
+            $result = $this->databaseAdapter->executeCommand($sql, [
                 "name" => $folder->name,
                 "ownerId" => $folder->ownerId
             ]);
+
+            if(!$result) {
+                throw new DatabaseExecutionException("Could not insert folder with name" . $folder->name);
+            }
+
+            return $this->databaseAdapter->getLastInsertId();
         }
 
         public function getFoldersByOwnerId($ownerId, $searchQuery = null) {

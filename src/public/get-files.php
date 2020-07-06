@@ -1,17 +1,31 @@
 <?php
-    if($_SERVER["REQUEST_METHOD"] != "POST") {
+    if($_SERVER["REQUEST_METHOD"] != "GET") {
         http_response_code(405);
         die();
     }
 
     require_once("templates/globals.php"); 
     require_once(Config::constructFilePath("/Business/FilesService.php")); 
+    require_once(Config::constructFilePath("/Models/Dto/SearchQuery.php")); 
+    session_start();
 
-    $folderId = json_decode(file_get_contents('php://input'));
+    $folderId = $_GET['folderId'];
+
+    $searchQuery = new SearchQuery();
+    if(isset($_GET['searchValue'])) {
+        $searchQuery->searchValue = $_GET['searchValue']; 
+    }
+    if(isset($_GET['start'])) {
+        $searchQuery->start = $_GET['start']; 
+    }
+    if(isset($_GET['count'])) {
+        $searchQuery->count = $_GET['count']; 
+    }
+
     $filesService = new FilesService();
     
     $filesSerialized = [];
-    $files = $filesService->getFiles($folderId);
+    $files = $filesService->getFiles($folderId, $searchQuery);
     for ($i=0; $i < count($files); $i++) { 
         array_push($filesSerialized, $files[$i]->jsonSerialize());
     }

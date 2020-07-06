@@ -1,34 +1,26 @@
 <?php 
     require_once(Config::constructFilePath("/Models/Entities/Folder.php"));
     require_once(Config::constructFilePath("/DataAccess/FolderRepository.php"));
+    require_once(Config::constructFilePath("/DataAccess/ContentRepository.php"));
+    require_once(Config::constructFilePath("/DataAccess/UsersRepository.php"));
     require_once(Config::constructFilePath("/Models/Dto/FolderWithLinks.php"));
+    require_once(Config::constructFilePath("/Models/Exceptions/DatabaseExecutionException.php"));
 
     class FoldersService {
         private $folderRepository;
+        private $contentRepository;
 
         public function __construct()
         {
             $this->folderRepository = new FolderRepository();
+            $this->contentRepository = new ContentRepository();
         }
 
         public function getFolders($searchQuery) {
-            //TODO add conditions from searchQuery
-
             $userId = $_SESSION['userId'];
             $folders = $this->folderRepository->getFoldersByOwnerId($userId, $searchQuery);
 
-            $foldersWithLinks = [];
-            for ($i = 0; $i < count($folders); $i++) { 
-                $openLink = "folder.php?folderId=" . $folders[$i]->id;
-                $editLink = "edit-folder.php?folderId=" . $folders[$i]->id;
-                $deleteLink = "delete-folder.php?folderId=" . $folders[$i]->id;
-
-                $folderWithLinks = new FolderWithLinks($folders[$i]->id, $folders[$i]->name, $folders[$i]->ownerId, $openLink, $editLink, $deleteLink);
-                
-                array_push($foldersWithLinks, $folderWithLinks);
-            }
-            
-            return $foldersWithLinks;
+            return $folders;
         }
 
         public function addFolder($folderName)
@@ -39,12 +31,35 @@
             $userId = $_SESSION['userId'];
             $folder->ownerId = $userId; 
 
-            return $this->folderRepository->addFolder($folder);
+            try {
+                $id = $this->folderRepository->addFolder($folder);
+
+                $folderPath = Utils::combinePaths(array($userId, $id));
+                $this->contentRepository->addFolder($folderPath);
+
+                return true;   
+            } catch (DatabaseExecutionException $e) {
+                return new ErrorResult([
+                    $e->getMessage()
+                ]);
+            }
         }
 
         public function deleteFolder($folderId)
         {
-            return $this->folderRepository->deleteFolder($folderId);
+            $userId = 1;
+            $result = $this->folderRepository->deleteFolder($folderId);
+
+            if($result) {
+                $url = Utils::combinePaths(array($userId, $folderId));
+                
+                try {
+                    $this->contentRepository->deleteFolder($url);
+                } catch (\Throwable $th) {
+                } 
+            }
+
+            return $result;
         }
 
         public function editFolder($folderId, $folderName)

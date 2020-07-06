@@ -13,5 +13,9 @@
                 header('Location: login.php?returnUrl='.urlencode($_SERVER['REQUEST_URI']));
             }
         }
+
+        public static function combinePaths($paths) {
+            return preg_replace('#/+#', '/', join('/', $paths));
+        }
     }
 ?>

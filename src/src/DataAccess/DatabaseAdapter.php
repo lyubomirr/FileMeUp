@@ -34,6 +34,10 @@
             return $statement->execute($parameters);
         }
 
+        public function getLastInsertId() {
+            return $this->connection->lastInsertId();
+        }
+
         public function fetchStatement($sql, $parameters = null) {
             $statement = $this->connection->prepare($sql);
             $statement->execute($parameters);

@@ -1,5 +1,5 @@
 <?php
-    if($_SERVER["REQUEST_METHOD"] != "POST") {
+    if($_SERVER["REQUEST_METHOD"] != "GET") {
         http_response_code(405);
         die();
     }
@@ -9,7 +9,17 @@
     require_once(Config::constructFilePath("/Business/FoldersService.php")); 
     session_start();
 
-    $searchQuery = SearchQuery::fromJson(file_get_contents('php://input'));
+    $searchQuery = new SearchQuery();
+    if(isset($_GET['searchValue'])) {
+        $searchQuery->searchValue = $_GET['searchValue']; 
+    }
+    if(isset($_GET['start'])) {
+        $searchQuery->start = $_GET['start']; 
+    }
+    if(isset($_GET['count'])) {
+        $searchQuery->count = $_GET['count']; 
+    }
+    
     $folderService = new FoldersService();
     
     $foldersSerialized = [];

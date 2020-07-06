@@ -1,4 +1,4 @@
-export class SearchQuery {
+class SearchQuery {
     constructor(searchValue, count, start) {
         this.searchValue = searchValue;
         this.count = count;
