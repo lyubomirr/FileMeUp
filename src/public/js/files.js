@@ -53,6 +53,7 @@
 
                 filesGridHTML = filesGridHTML +
                     "<div class='file-item'>" +
+                    `<a href=view-file.php?fileId=${file.id}>` +
                     "<div class='file-content'>" +
                     "<div class='" + contentClassList + "'>" +
                     "<img src='" + contentImage + "'>" +
@@ -66,6 +67,7 @@
                     "</div>" +
                     "</div>" +
                     "</div>" +
+                    "</a>" +
                     "</div>";
             }
         }
