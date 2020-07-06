@@ -2,21 +2,13 @@
     class ThumbnailCreator {
 
         public static function createThumbnail($src, $targetWidth, $targetHeight) {
-            $folderPath = pathinfo($src, PATHINFO_DIRNAME);
-            $filenameNoExt = pathinfo($src, PATHINFO_FILENAME);
-            $thumbnailName = $filenameNoExt . "_thumb" . ".png";
 
-            $serverPath = $_SERVER["DOCUMENT_ROOT"];
-            $src = $serverPath . "/" . $src;
+            $fileNameNoExt = pathinfo($src, PATHINFO_FILENAME);
+            $thumbnailName = $fileNameNoExt . "_thumb" . ".png";
 
-            $thumbnailPath = $folderPath . "/" . $thumbnailName;
-            $dest = $serverPath . "/" . $thumbnailPath;
+            $dest = Utils::combinePaths(array(Config::getPublicPath(), "thumbnails", $thumbnailName));
+            $src = Utils::combinePaths(array(Config::getUploadsPath(), $src));
 
-            $serverUrl = "http://$_SERVER[HTTP_HOST]";
-            // if(file_exists($serverPath . "/" . $thumbnailPath)) {
-            //     return $serverUrl . "/" . $thumbnailPath;
-            // }
-            
             $type = exif_imagetype($src);
             if (!$type || !self::IMAGE_HANDLERS[$type]) {
                 return null;
@@ -59,7 +51,7 @@
                 self::IMAGE_HANDLERS[$type]['quality']
             );
 
-            return $serverUrl . "/" . $thumbnailPath;
+            return Utils::combinePaths(array("thumbnails", $thumbnailName));
         }
 
         const IMAGE_HANDLERS = [

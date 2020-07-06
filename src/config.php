@@ -16,5 +16,9 @@
         public static function getUploadsPath() {
             return __DIR__ . "/storage";
         }
+        
+        public static function getPublicPath() {
+            return __DIR__ . "/public";
+        }
     }
 ?>

@@ -32,10 +32,7 @@
             for ($i=0; $i < count($files); $i++) { 
                 $file = $files[$i];
 
-                $relativeFilePath = Utils::combinePaths(array($userId, $folder->id, $file->location));
-                $filePath = $this->contentRepository->getFileLocation($relativeFilePath);
-
-                $thumbnailPath = ThumbnailCreator::createThumbnail($filePath, 120, 200);
+                $thumbnailPath = ThumbnailCreator::createThumbnail($file->location, 120, 200);
                 $hasThumbnail = $thumbnailPath != null; 
 
                 $fileResult = new FileBaseResult($file->id, $file->name, str_replace(".", "", $file->extension), $thumbnailPath, $hasThumbnail);
