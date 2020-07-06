@@ -8,6 +8,11 @@
     require_once(Config::constructFilePath("/Business/FoldersService.php")); 
     session_start();
 
+    if(!Utils::isLoggedIn()) {
+        http_response_code(401);
+        die();
+    }
+    
     $folderName = json_decode(file_get_contents('php://input'), true);
     $folderService = new FoldersService();
     

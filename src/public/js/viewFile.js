@@ -1,20 +1,26 @@
 (() => {
-    function showErrorMessage(message) {
-        const mainSection = document.getElementsByClassName("app-main")[0];
-        mainSection.innerHTML = `<h1 class='heading aligncenter'>${message}</h1>`;
-    }
-
     function showNoFileMessage() {
-        showErrorMessage("No file found for the corresponding id!");
+        Utils.showErrorMessageInSection("No file found for the corresponding id!");
     }
 
     function populateFields(file) {
-        document.getElementById("file-name").innerText = file.name;
+        document.getElementById("file-name").append(file.name);
         document.getElementById("description").innerText = file.description;
         document.getElementById("extension").innerText = file.extension;
         document.getElementById("size").innerText = file.size;
         document.getElementById("store-date").innerText = file.storeDate;
         document.getElementById("last-modified-date").innerText = file.lastModifiedDate;
+    }
+
+    function addBackButtonListener(folderId) {
+        const btn = document.getElementsByClassName("back-icon")[0];
+        btn.addEventListener("click", () => {
+            redirectToFolder(folderId);
+        });
+    }
+
+    function redirectToFolder(folderId) {
+        window.location.href = "folder.php?folderId=" + folderId;
     }
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -31,9 +37,11 @@
                 showNoFileMessage();
                 return;
             }
+
+            addBackButtonListener(file.folderId);
             populateFields(file);
         })
         .catch(err => {
-            showErrorMessage(err.errorMessages);
+            Utils.showErrorMessageInSection(err.errorMessages);
         });
 })();

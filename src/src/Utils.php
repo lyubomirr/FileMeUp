@@ -8,6 +8,10 @@
             return $_SESSION["username"];
         }
 
+        public static function getUserId() {
+            return $_SESSION["userId"];
+        }
+
         public static function redirectIfUnauthorized() {
             if(!Utils::isLoggedIn()) {
                 header('Location: login.php?returnUrl='.urlencode($_SERVER['REQUEST_URI']));

@@ -9,6 +9,11 @@
     require_once(Config::constructFilePath("/Models/Dto/SearchQuery.php")); 
     session_start();
 
+    if(!Utils::isLoggedIn()) {
+        http_response_code(401);
+        die();
+    }
+
     $folderId = $_GET['folderId'];
 
     $searchQuery = new SearchQuery();
@@ -25,7 +30,7 @@
     $filesService = new FilesService();
     
     $filesSerialized = [];
-    $files = $filesService->getFiles($folderId, $searchQuery);
+    $files = $filesService->getFiles($folderId, $searchQuery, $_SESSION["userId"]);
     for ($i=0; $i < count($files); $i++) { 
         array_push($filesSerialized, $files[$i]->jsonSerialize());
     }

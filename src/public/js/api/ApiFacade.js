@@ -46,6 +46,25 @@ class ApiFacade {
         })
     }
 
+    static postFormData(endpointPath, formData) {
+        return new Promise((resolve, reject) => {
+            fetch(endpointPath, {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(jsonResponse => {
+                    if (jsonResponse.hasOwnProperty("errorMessages")) {
+                        reject(jsonResponse);
+                    } else {
+                        resolve(jsonResponse);
+                    }
+                })
+                .catch(err => reject(err));
+        })
+    }
+
+
     static delete(endpointPath, queryParams) {
         const path = this.constructPath(endpointPath, queryParams);
 
@@ -75,28 +94,31 @@ class ApiFacade {
 
     static getFolders(searchQuery) {
         if (searchQuery) {
-            return this.get("get-folders.php", { 
-                searchValue: searchQuery.searchValue, 
+            return this.get("get-folders.php", {
+                searchValue: searchQuery.searchValue,
                 start: searchQuery.start,
-                count: searchQuery.count });
+                count: searchQuery.count
+            });
         }
         return this.get("get-folders.php", {});
     }
 
     static getFiles(folderId, searchQuery) {
         if (searchQuery) {
-            return this.get("get-files.php", { 
-                folderId, folderId, 
-                searchValue: searchQuery.searchValue, 
+            return this.get("get-files.php", {
+                folderId,
+                folderId,
+                searchValue: searchQuery.searchValue,
                 start: searchQuery.start,
-                count: searchQuery.count });
+                count: searchQuery.count
+            });
         }
         return this.get("get-files.php", { folderId, folderId });
     }
 
     static deleteFolder(folderId) {
         return this.delete("delete-folder.php", { folderId: folderId });
-    } 
+    }
 
     static openFolder(folderId) {
 
@@ -104,5 +126,13 @@ class ApiFacade {
 
     static getFileById(fileId) {
         return this.get("get-file.php", { fileId: fileId });
+    }
+
+    static getFolderById(folderId) {
+        return this.get("get-folder-by-id.php", { folderId: folderId });
+    }
+
+    static uploadFile(fileFormData) {
+        return this.postFormData("add-file.php", fileFormData);
     }
 }

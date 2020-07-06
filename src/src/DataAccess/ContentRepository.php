@@ -1,45 +1,60 @@
 <?php
     class ContentRepository {
-        private $storagePath;
-        private $storageName = "FileMeUpStorage";
-
-        public function __construct(){
-            $this->storagePath = Utils::combinePaths(array($_SERVER["DOCUMENT_ROOT"], $this->storageName));
+        public function deleteFolder($path) {
+            $folderPath = $this->getAbsolutePath($path);
+            if(file_exists($folderPath)) {
+                rmdir($folderPath);
+            }
         }
 
-        public function addFolder($url) {
-            $folderPath = Utils::combinePaths(array($this->storagePath, $url));
-            mkdir($folderPath);
+        private function getAbsolutePath($filePath) {
+            return Utils::combinePaths(array(Config::getUploadsPath(), $filePath));
         }
 
-        public function deleteFolder($url) {
-            $folderPath = Utils::combinePaths(array($this->storagePath, $url));
-            rmdir($folderPath);
+        public function addFile($tmpName, $filePath) {
+
+            if(file_exists($this->getAbsolutePath($filePath))) {
+                $fileNumber = 1;
+                $newPath = self::generateNewFilePath($filePath, $fileNumber);
+                while(file_exists($this->getAbsolutePath($newPath))) {
+                    $fileNumber++;
+                    $newPath = self::generateNewFilePath($filePath, $fileNumber);
+                }
+                
+                $filePath = $newPath;
+            }
+
+            $fullFilePath = $this->getAbsolutePath($filePath);
+            $fileDirPath = dirname($fullFilePath);
+
+            if(!file_exists($fileDirPath)) {
+                mkdir($fileDirPath, 0777, true);
+            }
+
+            move_uploaded_file($tmpName, $fullFilePath);
+            return $filePath;
         }
 
-        public function addUploadedFile($url) {
-            $fileName = pathinfo($url, PATHINFO_FILENAME);
-            $filePath = Utils::combinePaths(array($this->storagePath, $url));
-
-            move_uploaded_file($fileName, $filePath);
+        private static function generateNewFilePath($filePath, $number) {
+            $pathInfo = pathinfo($filePath);
+            $newPath = $pathInfo['dirname'].'/'.$pathInfo['filename']."({$number})".".".$pathInfo['extension'];
+            return $newPath;
         }
 
-        public function getFile($url) {
-            $filePath = Utils::combinePaths(array($this->storagePath, $url));
-            file_get_contents($filePath);
+        public function getFile($filePath) {
+            $fullFilePath = $this->getAbsolutePath($filePath);
+            file_get_contents($fullFilePath);
         }
 
-        public function updateFile($url, $fileName) {
-            $filePath = Utils::combinePaths(array($this->storagePath, $url));
+        public function deleteFile($filePath) {
+            $fullFilePath = $this->getAbsolutePath($filePath);
+            if(file_exists($fullFilePath)) {
+                unlink($fullFilePath);
+            }
         }
 
-        public function deleteFile($url) {
-            $filePath = Utils::combinePaths(array($this->storagePath, $url));
-            unlink($filePath);
-        }
-
-        public function getFileLocation($url) {
-            return Utils::combinePaths(array($this->storageName, $url));
+        public function getFileLocation($filePath) {
+            return $this->getAbsolutePath($filePath);
         }
     }
 ?>

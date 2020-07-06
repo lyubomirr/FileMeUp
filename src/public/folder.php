@@ -29,7 +29,9 @@
                     <div class="information-row">
                         <h3 class="heading files-heading">Files</h3>
                         <span>
-                            <i class="fas fa-plus-square add-icon" title="Add file"></i>
+                            <?php 
+                                echo '<a href="upload-file.php?folderId='.$_GET["folderId"].'"> <i class="fas fa-plus-square add-icon" title="Add file"></i></a>';
+                            ?>                                   
                         </span>
                     </div>
                     <div id="files-information">
@@ -41,6 +43,7 @@
         </main>
         <script type="text/javascript" src="js/searchQuery.js"></script>
         <script type="text/javascript" src="js/api/ApiFacade.js"></script>
+        <script type="text/javascript" src="js/Utils.js"></script>
         <script type="text/javascript" src="js/files.js"></script>
 </body>
 

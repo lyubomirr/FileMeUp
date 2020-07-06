@@ -20,6 +20,10 @@ class Utils {
 
     static isEmptyNullOrUndefined(value) {
         return value == undefined || value == null || Object.keys(value).length === 0;
+    }
 
+    static showErrorMessageInSection(message) {
+        const mainSection = document.getElementsByClassName("app-main")[0];
+        mainSection.innerHTML = `<h1 class='heading aligncenter'>${message}</h1>`;
     }
 }

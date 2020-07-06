@@ -13,14 +13,15 @@
         }
 
         public function addFile($file) {
-            $sql = "INSERT INTO `{$this->tableName}` (`name`, `folderId`, `description`, `size`, `location`, `storeDate`, `lastModifiedDate`) 
-                    VALUES (:name, :folderId, :description, :size, :location, :storeDate, :lastModifiedDate) ";
+            $sql = "INSERT INTO `{$this->tableName}` (`name`, `folderId`, `description`, `size`, `extension`, `location`, `storeDate`, `lastModifiedDate`) 
+                    VALUES (:name, :folderId, :description, :size, :extension, :location, :storeDate, :lastModifiedDate) ";
             
             $result = $this->databaseAdapter->executeCommand($sql, [
                 "name" => $file->name,
                 "folderId" => $file->folderId,
                 "description" => $file->description,
                 "size" => $file->size,
+                "extension" => $file->extension,
                 "location" => $file->location,
                 "storeDate" => $file->storeDate,
                 "lastModifiedDate" => $file->lastModifiedDate
@@ -90,7 +91,6 @@
 
         public function deleteFile($id) {
             $sql = "DELETE FROM `{$this->tableName}` WHERE `id` = :id";
-
             return $this->databaseAdapter->executeCommand($sql, ["id" => $id]);
         }
     }

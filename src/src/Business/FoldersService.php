@@ -16,6 +16,10 @@
             $this->contentRepository = new ContentRepository();
         }
 
+        public function getById($folderId) {
+            return $this->folderRepository->getFolder($folderId);
+        }
+
         public function getFolders($searchQuery) {
             $userId = $_SESSION['userId'];
             $folders = $this->folderRepository->getFoldersByOwnerId($userId, $searchQuery);
@@ -32,12 +36,9 @@
             $folder->ownerId = $userId; 
 
             try {
-                $id = $this->folderRepository->addFolder($folder);
+                $this->folderRepository->addFolder($folder);
+                return true;  
 
-                $folderPath = Utils::combinePaths(array($userId, $id));
-                $this->contentRepository->addFolder($folderPath);
-
-                return true;   
             } catch (DatabaseExecutionException $e) {
                 return new ErrorResult([
                     $e->getMessage()
@@ -52,11 +53,7 @@
 
             if($result) {
                 $url = Utils::combinePaths(array($userId, $folderId));
-                
-                try {
-                    $this->contentRepository->deleteFolder($url);
-                } catch (\Throwable $th) {
-                } 
+                $this->contentRepository->deleteFolder($url);
             }
 
             return $result;

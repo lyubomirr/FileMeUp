@@ -23,7 +23,7 @@
         die();
     }
 
-    if($file->folder->ownerId != $_SESSION["userId"]) {
+    if($file->folder->ownerId != Utils::getUserId()) {
         http_response_code(403);
         echo json_encode(new ErrorResult(["You don't have permissions to view this file."]));
         die();

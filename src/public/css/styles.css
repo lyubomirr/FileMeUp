@@ -38,6 +38,10 @@ dd {
     margin-bottom: 1rem;
 }
 
+textarea {
+    resize: none;
+}
+
 .btn {
     cursor: pointer;
 }
@@ -95,6 +99,10 @@ dd {
     text-decoration: none;
     color: var(--text-color);
     display: block;
+}
+
+.table-data a:hover {
+    text-decoration: underline;
 }
 
 .border {
@@ -284,12 +292,20 @@ a:hover {
     margin-bottom: 1.5rem;
 }
 
-.form-group input {
+.form-group input,
+.form-group textarea {
     width: 100%;
-    height: 2rem;
     padding: 5px 8px;
     border-radius: .25rem;
     border: 1px solid #ddd;
+}
+
+.form-group input {
+    height: 2rem;
+}
+
+.form-group textarea {
+    height: 5rem;
 }
 
 .form-group .btn {
@@ -544,7 +560,7 @@ button.close {
     margin: auto;
 }
 
-.file-icon-image{
+.file-icon-image {
     padding-top: 40px;
 }
 
@@ -563,4 +579,21 @@ button.close {
 
 #file-name {
     font-weight: bold;
+}
+
+#upload-file-form-section {
+    width: 45%;
+    max-width: 800px;
+}
+
+.back-icon {
+    color: var(--main-color);
+    display: inline-block;
+    margin-right: 0.5rem;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.back-icon:hover {
+    color: var(--second-color);
 }

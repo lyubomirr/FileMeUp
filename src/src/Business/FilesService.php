@@ -20,9 +20,7 @@
             $this->contentRepository = new ContentRepository();
         }
 
-        public function getFiles($folderId, $searchQuery) {
-            $userId = $_SESSION['userId'];
-            
+        public function getFiles($folderId, $searchQuery, $userId) {
             $folder = $this->folderRepository->getFolder($folderId);
             if($folder->ownerId != $userId) {
                 throw new Exception("");
@@ -48,21 +46,22 @@
             return $filesResult;
         }
 
-        public function addFile($folderId, $inputFile) {
-             $userId = $_SESSION['userId'];
-
-             $file = new File();
-             $file->folderId = $folderId;
-             $file->name = $inputFile->name;
+        public function addFile($userId, $fileEntity, $file) {
+            $filePath = Utils::combinePaths(array($userId, $fileEntity->folderId, $file["name"]));
 
              try {
-                 $id = $this->fileRepository->addFile($file);
+                $savedFilePath = $this->contentRepository->addFile($file["tmp_name"], $filePath);
 
-                 $url = Utils::combinePaths(array($userId, $file->folderId, $id, $inputFile->name));
-                 $this->contentRepository->addUploadedFile($url);
+                $fileEntity->size = $file["size"];
+                $fileEntity->storeDate = date('Y-m-d H:i:s');
+                $fileEntity->location = $savedFilePath;
+                $fileEntity->extension = pathinfo($file["name"], PATHINFO_EXTENSION);
 
-                 return true;
+                $this->fileRepository->addFile($fileEntity);
+                return true;
+
              } catch (DatabaseExecutionException $e) {
+                $this->contentRepository->deleteFile($filePath);
                 return new ErrorResult([
                     $e->getMessage()
                 ]);

@@ -25,7 +25,7 @@
         die();
     }
     
-    if($file->folder->ownerId != $_SESSION["userId"]) {
+    if($file->folder->ownerId != Utils::getUserId()) {
         http_response_code(403);
         die();
     }

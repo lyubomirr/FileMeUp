@@ -13,5 +13,6 @@
     $folderId = $_GET['folderId'];
     $folderName = json_decode(file_get_contents('php://input'), true);
     $result = $folderService->editFolder($folderId, $folderName);
+
     echo json_encode($result);
 ?>
