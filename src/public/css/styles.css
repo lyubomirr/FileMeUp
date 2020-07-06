@@ -539,6 +539,10 @@ button.close {
     border-color: var(--second-color);
 }
 
+.file-item a {
+    color: var(--text-color);
+}
+
 .file-thumb img {
     width: 100%;
     position: relative;
