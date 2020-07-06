@@ -1,6 +1,7 @@
 <?php
     require_once(Config::constructFilePath("/DataAccess/DatabaseAdapter.php"));
     require_once(Config::constructFilePath("/Models/Entities/File.php"));
+    require_once(Config::constructFilePath("/Models/Entities/Folder.php"));
 
     class FileRepository {
         private $databaseAdapter;
@@ -11,7 +12,7 @@
         }
 
         public function addFile($file) {
-            $sql = "INSERT INTO {$this->tableName}(name, folderId, description, size, location, storeDate, lastModifiedDate) 
+            $sql = "INSERT INTO `{$this->tableName}` (`name`, `folderId`, `description`, `size`, `location`, `storeDate`, `lastModifiedDate`) 
                     VALUES (:name, :folderId, :description, :size, :location, :storeDate, :lastModifiedDate) ";
             
             return $this->databaseAdapter->executeCommand($sql, [
@@ -26,7 +27,7 @@
         }
 
         public function getFilesByFolderId($folderId, $searchQuery = null) {
-            $sql = "SELECT * FROM {$this->tableName} WHERE folderId = :folderId";
+            $sql = "SELECT * FROM `{$this->tableName}` WHERE `folderId` = :folderId";
             
             if($searchQuery != null && $searchQuery->searchValue != "") {
                 $sql = $sql . " && name LIKE '{$searchQuery->searchValue}%'";
@@ -48,21 +49,25 @@
         }
 
         public function getFile($id) {
-            $sql = "SELECT * FROM {$this->tableName} WHERE id = :id";
+            $sql = "SELECT `{$this->tableName}`.*, `folders`.`id` as `fId`, `folders`.`name` as `folderName`, `folders`.`ownerId` 
+            FROM `{$this->tableName}` INNER JOIN `folders` ON `{$this->tableName}`.`folderId`=`folders`.`id` 
+            WHERE {$this->tableName}.`id` = :id";
             
             $result = $this->databaseAdapter->fetchStatement($sql, ["id" => $id]);
             if (count($result) == 0) {
                 return null;
             }
 
-            return File::fromAssociativeArray($result[0]);
+            $file = File::fromAssociativeArray($result[0]);
+            $file->folder = new Folder($result[0]["fId"], $result[0]["folderName"], $result[0]["ownerId"]);
+            return $file;
         }
 
         public function updateFile($file) {
-            $sql = "UPDATE {$this->tableName} 
-                    SET name = :name, folderId = :folderId, description = :description, 
-                    size = :size, location = :location, storeDate = :storeDate, lastModifiedDate = :lastModifiedDate
-                    WHERE id = :id";
+            $sql = "UPDATE `{$this->tableName}` 
+                    SET `name` = :name, `folderId` = :folderId, `description` = :description, 
+                    `size` = :size, `location` = :location, `storeDate` = :storeDate, `lastModifiedDate` = :lastModifiedDate
+                    WHERE `id` = :id";
             
             return $this->databaseAdapter->executeCommand($sql, [
                 "id" => $file->id,
@@ -77,7 +82,7 @@
         }
 
         public function deleteFile($id) {
-            $sql = "DELETE FROM {$this->tableName} WHERE id = :id";
+            $sql = "DELETE FROM `{$this->tableName}` WHERE `id` = :id";
 
             return $this->databaseAdapter->executeCommand($sql, ["id" => $id]);
         }

@@ -11,7 +11,7 @@
         }
 
         public function addFolder($folder) {
-            $sql = "INSERT INTO {$this->tableName}(name, ownerId) VALUES (:name, :ownerId)";
+            $sql = "INSERT INTO `{$this->tableName}` (`name`, `ownerId`) VALUES (:name, :ownerId)";
             
             return $this->databaseAdapter->executeCommand($sql, [
                 "name" => $folder->name,
@@ -20,7 +20,7 @@
         }
 
         public function getFoldersByOwnerId($ownerId, $searchQuery = null) {
-            $sql = "SELECT * FROM {$this->tableName} WHERE ownerId = :ownerId";
+            $sql = "SELECT * FROM `{$this->tableName}` WHERE `ownerId` = :ownerId";
             
             if($searchQuery != null && $searchQuery->searchValue != "") {
                 $sql = $sql . " && name LIKE '{$searchQuery->searchValue}%'";
@@ -42,7 +42,7 @@
         }
 
         public function getFolder($id) {
-            $sql = "SELECT * FROM {$this->tableName} WHERE id = :id";
+            $sql = "SELECT * FROM `{$this->tableName}` WHERE `id` = :id";
             
             $result = $this->databaseAdapter->fetchStatement($sql, ["id" => $id]);
             if (count($result) == 0) {
@@ -53,7 +53,7 @@
         }
 
         public function updateFolder($folder) {
-            $sql = "UPDATE {$this->tableName} SET name = :name, ownerId = :ownerId WHERE id = :id";
+            $sql = "UPDATE `{$this->tableName}` SET `name` = :name, `ownerId` = :ownerId WHERE `id` = :id";
             
             return $this->databaseAdapter->executeCommand($sql, [
                 "id" => $folder->id,
@@ -63,7 +63,7 @@
         }
 
         public function deleteFolder($id) {
-            $sql = "DELETE FROM {$this->tableName} WHERE id = :id";
+            $sql = "DELETE FROM `{$this->tableName}` WHERE `id` = :id";
             return $this->databaseAdapter->executeCommand($sql, ["id" => $id]);
         }
     }

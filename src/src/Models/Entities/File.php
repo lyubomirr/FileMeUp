@@ -6,6 +6,7 @@
     class File extends BaseEntity implements JsonSerializable {
         private $name;
         private $folderId;
+        private $folder;
         private $description;
         private $size;
         private $location;
@@ -17,6 +18,7 @@
             $id = 0, 
             $name = "", 
             $folderId = 0, 
+            $folder = NULL,
             $description = "", 
             $size = 0, 
             $location = "", 
@@ -27,6 +29,7 @@
             
             $this->name = $name;
             $this->folderId = $folderId;
+            $this->folder = $folder;
             $this->description = $description;
             $this->size = $size;
             $this->location = $location;

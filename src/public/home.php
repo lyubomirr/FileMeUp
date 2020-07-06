@@ -1,7 +1,7 @@
 <?php 
     require_once("templates/globals.php");
     session_start();
-    Utils::checkSession();
+    Utils::redirectIfUnauthorized();
 ?>
 
 <!DOCTYPE html>

@@ -3,7 +3,7 @@
     require_once(Config::constructFilePath("/Models/GetSetBehaviour.php"));
     require_once(Config::constructFilePath("/Models/JsonBehaviour.php"));
 
-    class Folder extends BaseEntity {
+    class Folder extends BaseEntity implements JsonSerializable {
         private $name;
         private $ownerId;
 

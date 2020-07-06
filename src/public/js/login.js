@@ -7,7 +7,9 @@
 
         ApiFacade.login(userData)
             .then(() => {
-                window.location = "home.php";
+                const urlParams = new URLSearchParams(window.location.search);
+                const returnUrl = urlParams.get("returnUrl");
+                window.location = returnUrl ? returnUrl : "home.php";
             })
             .catch(err => {
                 Utils.addErrors(err.errorMessages);

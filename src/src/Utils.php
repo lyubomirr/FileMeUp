@@ -1,16 +1,16 @@
 <?php
     class Utils {
         public static function isLoggedIn() {
-            return isset($_SESSION["username"]);
+            return isset($_SESSION["userId"]);
         }
 
         public static function getUsername() {
             return $_SESSION["username"];
         }
 
-        public static function checkSession() {
+        public static function redirectIfUnauthorized() {
             if(!Utils::isLoggedIn()) {
-                header('Location: login.php');
+                header('Location: login.php?returnUrl='.urlencode($_SERVER['REQUEST_URI']));
             }
         }
     }
