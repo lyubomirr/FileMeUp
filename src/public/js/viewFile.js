@@ -19,6 +19,13 @@
         });
     }
 
+    function addDownloadButtonListener(fileId) {
+        const downloadBtn = document.getElementById("download-button");
+        downloadBtn.addEventListener("click", () => {
+            window.open(`get-file-content.php?fileId=${fileId}&download=true`);
+        })
+    }
+
     function redirectToFolder(folderId) {
         window.location.href = "folder.php?folderId=" + folderId;
     }
@@ -39,6 +46,7 @@
             }
 
             addBackButtonListener(file.folderId);
+            addDownloadButtonListener(fileId);
             populateFields(file);
         })
         .catch(err => {

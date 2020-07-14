@@ -1,23 +1,23 @@
 <?php
-
     require_once("templates/globals.php"); 
     require_once(Config::constructFilePath("/Business/FilesService.php")); 
     require_once(Config::constructFilePath("/Models/Entities/File.php")); 
     require_once(Config::constructFilePath("/Models/Dto/ErrorResult.php")); 
 
-    session_start();
-    if(!Utils::isLoggedIn()) {
-        http_response_code(401);
-        die();
+
+    function getFileName($filePath) {
+        return pathinfo($filePath, PATHINFO_FILENAME) . "." . pathinfo($filePath, PATHINFO_EXTENSION);
     }
+
+    session_start();
+    Utils::redirectIfUnauthorized();
 
     if(!isset($_GET["fileId"])) {
         die();
     }
 
     $fileId = $_GET["fileId"];
-    $isDownload = isset($_GET["download"]) && is_bool($_GET["download"]) ? $_GET["download"] : false;
-    
+
     $filesService = new FilesService();
     $file = $filesService->getFileById($fileId);
     if(is_null($file)) {
@@ -30,5 +30,13 @@
         die();
     }
 
-    //TODO:SHOW FILE
+    if(isset($_GET["download"]) && filter_var($_GET["download"], FILTER_VALIDATE_BOOLEAN)) {
+        header("Content-disposition: attachment; filename=" . getFileName($file->location));
+    } else {
+        header("Content-disposition: inline; filename=" . getFileName($file->location));
+    }
+
+    $fullPath = $filesService->getFileFullPath($file->location);
+    header("Content-Type: " . mime_content_type($fullPath));
+    echo readfile($fullPath);
 ?>

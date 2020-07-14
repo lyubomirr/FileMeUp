@@ -40,7 +40,7 @@
                     <input type="password" name="password" id="password" required/>
                 </div>
                 <div class="form-group aligncenter btn-form-group">
-                    <input type="submit" value="Login" class="btn btn-primary w-100" />
+                    <input type="submit" value="Login" class="btn btn-primary btn-normal w-100" />
                     <p>
                         Don't have an account? <a href="register.php" class="link">Register here.</a>
                     </p>

@@ -51,7 +51,7 @@
                     <input type="password" name="passwordConfirmation" id="passwordConfirmation" minlength="8" maxLength="100" required/>
                 </div>
                 <div class="form-group aligncenter btn-form-group">
-                    <input type="submit" value="Register" class="btn btn-primary w-100" />
+                    <input type="submit" value="Register" class="btn btn-primary btn-normal w-100" />
                 </div>
             </form>
         </section>

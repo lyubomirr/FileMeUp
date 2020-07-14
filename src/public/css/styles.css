@@ -47,11 +47,6 @@ textarea {
 }
 
 .btn:focus {
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    -ms-border-radius: 0px;
-    -o-border-radius: 0px;
-    border-radius: 0px;
     outline: none;
     border: none;
 }
@@ -308,8 +303,8 @@ a:hover {
     height: 5rem;
 }
 
-.form-group .btn {
-    height: 3rem;
+.btn-normal {
+    height: 3rem !important;
     border: 1px solid transparent;
     font-size: 1.1rem;
     border-radius: .25rem;
@@ -606,4 +601,13 @@ button.close {
 
 .back-icon:hover {
     color: var(--second-color);
+}
+
+#download-button {
+    width: 150px;
+}
+
+#download-button .fa-download {
+    display: inline-block;
+    margin-right: 0.5rem;
 }

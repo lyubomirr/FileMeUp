@@ -87,5 +87,9 @@
         public function getFileById($fileId) {
             return $this->fileRepository->getFile($fileId);
         }
+
+        public function getFileFullPath($filePath) {
+            return $this->contentRepository->getFileLocation($filePath);
+        }
     }
 ?>

@@ -38,6 +38,10 @@
                     <dd id="last-modified-date"></dd>
                     
                 </dl>
+                <button class="btn btn-normal btn-primary" id="download-button">
+                    <i class="fa fa-download" aria-hidden="true"></i>Download
+                </button>
+
             </section>
             <section id="file-view-section">
             </section>
