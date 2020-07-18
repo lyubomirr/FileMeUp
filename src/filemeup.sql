@@ -16,7 +16,7 @@ CREATE TABLE `Folders` (
   name varchar(100) NOT NULL,
   ownerId int(11) NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (ownerId) REFERENCES Users(id)
+  FOREIGN KEY (ownerId) REFERENCES Users(id) on delete cascade
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `Files` (
@@ -30,7 +30,7 @@ CREATE TABLE `Files` (
   storeDate datetime NOT NULL,
   lastModifiedDate datetime NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (folderId) REFERENCES Folders(id)
+  FOREIGN KEY (folderId) REFERENCES Folders(id) on delete cascade
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 COMMIT;

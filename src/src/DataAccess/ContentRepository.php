@@ -2,7 +2,14 @@
     class ContentRepository {
         public function deleteFolder($path) {
             $folderPath = $this->getAbsolutePath($path);
+
             if(file_exists($folderPath)) {
+                $files = glob($folderPath . "/*");
+                foreach($files as $file){
+                    if(is_file($file))
+                        unlink($file);
+                }
+
                 rmdir($folderPath);
             }
         }
