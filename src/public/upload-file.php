@@ -51,7 +51,7 @@
                     <textarea name="description" id="description" maxlength="255" resi></textarea>
                 </div>
                 <div class="form-group aligncenter btn-form-group">
-                    <input type="submit" value="Upload" class="btn btn-primary w-100" />
+                    <input type="submit" value="Upload" class="btn btn-primary w-100 btn-normal" />
                 </div>
             </form>
         </section>

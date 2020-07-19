@@ -151,6 +151,7 @@ textarea {
 
 .app-main {
     margin-top: 70px;
+    padding-bottom: 3rem !important;
 }
 
 .main-input {
@@ -179,6 +180,7 @@ hr {
     height: 50px;
     position: absolute;
     top: 0;
+    z-index: 999;
 }
 
 .navbar-menu {
@@ -236,14 +238,33 @@ hr {
     margin-right: 10px;
 }
 
+.add-icon,
+.export-icon {
+    transition: 0.2s ease;
+    vertical-align: bottom;
+}
+
 .add-icon {
     font-size: 1.73em;
     color: var(--main-color);
-    transition: 0.2s ease;
+    display: inline-block;
+    margin-right: 0.2rem;
+    margin-bottom: 17px;
 }
 
 .add-icon:hover {
     color: var(--second-color);
+    cursor: pointer;
+}
+
+.export-icon {
+    font-size: 1.6rem;
+    color: var(--second-color);
+    margin-bottom: 19px;
+}
+
+.export-icon:hover {
+    color: var(--main-color);
     cursor: pointer;
 }
 
@@ -326,6 +347,7 @@ a:hover {
     display: none;
     background-color: rgba(0, 0, 0, 0.5);
     transition: opacity 1s;
+    z-index: 9999;
 }
 
 .modal-dialog {
@@ -605,6 +627,8 @@ button.close {
     width: 58%;
     vertical-align: top;
     text-align: center;
+    padding: 1rem;
+    max-height: 500px;
 }
 
 #file-name {
@@ -655,4 +679,12 @@ button.close {
 
 .hide {
     display: none;
+}
+
+.file-preview {
+    width: 100%;
+}
+
+iframe.file-preview {
+    height: 500px;
 }

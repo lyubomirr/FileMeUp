@@ -13,6 +13,7 @@
     Utils::redirectIfUnauthorized();
 
     if(!isset($_GET["fileId"])) {
+        http_response_code(400);
         die();
     }
 
@@ -33,7 +34,7 @@
     if(isset($_GET["download"]) && filter_var($_GET["download"], FILTER_VALIDATE_BOOLEAN)) {
         header("Content-disposition: attachment; filename=" . getFileName($file->location));
     } else {
-        header("Content-disposition: inline; filename=" . getFileName($file->location));
+        header("Content-disposition: inline; filename=\"" . getFileName($file->location));
     }
 
     $fullPath = $filesService->getFileFullPath($file->location);

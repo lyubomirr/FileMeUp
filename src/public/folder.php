@@ -29,9 +29,8 @@
                     <div class="information-row">
                         <h3 class="heading files-heading">Files</h3>
                         <span>
-                            <?php 
-                                echo '<a href="upload-file.php?folderId='.$_GET["folderId"].'"> <i class="fas fa-plus-square add-icon" title="Add file"></i></a>';
-                            ?>                                   
+                            <i class="fas fa-plus-square add-icon" title="Add file"></i>
+                            <i class="fas fa-file-export export-icon" title="Export folder metadata"></i>     
                         </span>
                     </div>
                     <div id="files-information">

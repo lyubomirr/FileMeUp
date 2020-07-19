@@ -7,12 +7,15 @@
         return;
     }
 
+    addExportButtonListener(folderId);
+    addUploadButtonListener(folderId);
     showLoader();
     ApiFacade.getFiles(folderId)
         .then(response => {
             fillGrid(response);
             addConfirmModalEvent(response, "fa-trash", "deleteFileAndCloseModal");
-        });
+        })
+        .catch(err => Utils.showErrorMessageInSection(err.errorMessages));
 
     var searchInput = document.getElementById("search-input");
     searchInput.addEventListener("keyup", function(event) {
@@ -27,7 +30,8 @@
                 .then(response => {
                     fillGrid(response)
                     addConfirmModalEvent(response, "fa-trash", "deleteFileAndCloseModal");
-                });
+                })
+                .catch(err => Utils.showErrorMessageInSection(err.errorMessages));
         }
     });
 })();
@@ -139,4 +143,18 @@ function showLoader() {
     if (loader.classList.contains("hide")) {
         loader.classList.remove("hide");
     }
+}
+
+function addExportButtonListener(folderId) {
+    const btn = document.getElementsByClassName("export-icon")[0];
+    btn.addEventListener("click", () => {
+        window.open(`export-folder-metadata.php?folderId=${folderId}`);
+    })
+}
+
+function addUploadButtonListener(folderId) {
+    const btn = document.getElementsByClassName("add-icon")[0];
+    btn.addEventListener("click", () => {
+        window.location = `upload-file.php?folderId=${folderId}`;
+    })
 }
