@@ -39,6 +39,7 @@
                 </div>
                 <?php
                     require_once("templates/modal.php");
+                    require_once("templates/confirmModal.php");
                 ?>
             </section>  
         </main>
@@ -46,7 +47,8 @@
         <script type="text/javascript" src="js/searchQuery.js"></script>
         <script type="text/javascript" src="js/Utils.js"></script>
         <script type="text/javascript" src="js/api/ApiFacade.js"></script>
-        <script type="text/javascript" src="js/folderModal.js"></script>
+        <script type="text/javascript" src="js/confirmModal.js"></script>
+        <script type="text/javascript" src="js/formModal.js"></script>
         <script type="text/javascript" src="js/folders.js"></script>
 </body>
 

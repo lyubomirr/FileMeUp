@@ -1,3 +1,23 @@
+(() => {
+    const searchQuery = new SearchQuery("", 100, 0);
+    ApiFacade.getFolders(searchQuery)
+        .then(response => {
+            fillTable(response);
+            addEditModalEvent(response);
+            addConfirmModalEvent(response, "fa-trash-alt", "deleteFolderAndCloseModal");
+        });
+
+    const searchInput = document.getElementById("search-input");
+    searchInput.addEventListener("keyup", function(event) {
+        if (event.key === "Enter") {
+            let searchValue = event.target.value;
+            let searchQuery = new SearchQuery(searchValue, 100, 0);
+
+            updateTableAndAddEvents(searchQuery);
+        }
+    });
+})();
+
 function updateTable(response) {
     var foldersTable = document.getElementById("folders_table");
     foldersTable.innerHTML = "";
@@ -22,20 +42,20 @@ function fillTable(response) {
 
             tableRowsHtml = tableRowsHtml +
                 "<tr class='table-row clickable-row'>" +
-                "<td class='folder-icon table-data'>" +
-                "<i class='fa fa-folder'></i>" +
-                "</td>" +
-                "<td class='table-data'>" +
-                "<a href='" + openLink + "' class='w-100 h-100'>" + folder.name + "</a>" +
-                "</td>" +
-                "<td class='icon-options table-data'>" +
-                "<span class='float-r'>" +
-                "<i class='fas fa-trash-alt option-icon' title='Delete folder'></i>" +
-                "</span>" +
-                "<span class='float-r'>" +
-                "<i class='fas fa-edit option-icon' title='Edit folder name'></i>" +
-                "</span>" +
-                "</td>" +
+                    "<td class='folder-icon table-data'>" +
+                        "<i class='fa fa-folder'></i>" +
+                    "</td>" +
+                    "<td class='table-data'>" +
+                        "<a href='" + openLink + "' class='w-100 h-100'>" + folder.name + "</a>" +
+                    "</td>" +
+                    "<td class='icon-options table-data'>" +
+                        "<span class='float-r'>" +
+                            "<i class='fas fa-trash-alt option-icon' title='Delete folder'></i>" +
+                        "</span>" +
+                        "<span class='float-r'>" +
+                            "<i class='fas fa-edit option-icon' title='Edit folder name'></i>" +
+                        "</span>" +
+                    "</td>" +
                 "</tr>";
         }
     }
@@ -49,26 +69,6 @@ function updateTableAndAddEvents(searchQuery) {
         .then(response => {
             updateTable(response);
             addEditModalEvent(response);
-            addConfirmModalEvent(response);
+            addConfirmModalEvent(response, "fa-trash-alt", "deleteFolderAndCloseModal");
         });
 }
-
-(() => {
-    const searchQuery = new SearchQuery("", 100, 0);
-    ApiFacade.getFolders(searchQuery)
-        .then(response => {
-            fillTable(response);
-            addEditModalEvent(response);
-            addConfirmModalEvent(response);
-        });
-
-    const searchInput = document.getElementById("search-input");
-    searchInput.addEventListener("keyup", function(event) {
-        if (event.key === "Enter") {
-            let searchValue = event.target.value;
-            let searchQuery = new SearchQuery(searchValue, 100, 0);
-
-            updateTableAndAddEvents(searchQuery);
-        }
-    });
-})();

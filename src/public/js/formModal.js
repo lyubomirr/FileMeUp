@@ -51,45 +51,8 @@ function showFolderModal(modalTitle, modalBodyText, submitLink) {
     form.setAttribute("action", submitLink);
 }
 
-function addConfirmModalEvent(response) {
-    var deleteButtons = document.getElementsByClassName("fa-trash-alt")
-
-    for (let i = 0; i < deleteButtons.length; i++) {
-        const deleteButton = deleteButtons[i];
-
-        deleteButton.addEventListener('click', () => {
-            var folderModal = document.getElementById("confirm-modal");
-            folderModal.classList.add("show");
-
-            var folderName = response[i].name;
-            var confirmModalBody = folderModal.querySelector(".modal-dialog .modal-content .modal-body");
-            confirmModalBody.innerHTML = "<p> Are you sure you want to delete '" + folderName + "' ?";
-            var confirmButton = document.getElementById("confirm");
-            confirmButton.setAttribute("onclick", "deleteFolderAndCloseModal('" + response[i].id + "');");
-        });
-    }
-}
-
-function deleteFolderAndCloseModal(folderId) {
-    ApiFacade.deleteFolder(folderId)
-        .then(() => {
-            closeConfirmModal();
-
-            var searchInput = document.getElementById("search-input");
-            let searchQuery = new SearchQuery(searchInput.value, 100, 0);
-            updateTableAndAddEvents(searchQuery);
-        });
-}
-
 function closeFolderModal() {
     var folderModal = document.getElementById("folder-modal");
-    if (folderModal.classList.contains("show")) {
-        folderModal.classList.remove("show");
-    }
-}
-
-function closeConfirmModal() {
-    var folderModal = document.getElementById("confirm-modal");
     if (folderModal.classList.contains("show")) {
         folderModal.classList.remove("show");
     }

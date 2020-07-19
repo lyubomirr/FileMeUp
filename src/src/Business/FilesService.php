@@ -44,25 +44,50 @@
         }
 
         public function addFile($userId, $fileEntity, $file) {
-            $filePath = Utils::combinePaths(array($userId, $fileEntity->folderId, $file["name"]));
+            $extension = pathinfo($file["name"], PATHINFO_EXTENSION);
+            
+            $savedFiles = [];
+            try {
+                if ($extension == "zip") {
+                    $savedFiles = $this->contentRepository->unzipFile($file["tmp_name"], Utils::combinePaths(array($userId, $fileEntity->folderId)));
 
-             try {
-                $savedFilePath = $this->contentRepository->addFile($file["tmp_name"], $filePath);
+                    for ($i=0; $i < count($savedFiles); $i++) {
 
-                $fileEntity->size = $file["size"];
-                $fileEntity->storeDate = date('Y-m-d H:i:s');
-                $fileEntity->location = $savedFilePath;
-                $fileEntity->extension = pathinfo($file["name"], PATHINFO_EXTENSION);
+                        $fileEntity->name = pathinfo($savedFiles[$i]["filename"], PATHINFO_BASENAME);
+                        $fileEntity->size = $savedFiles[$i]["size"];
+                        $fileEntity->storeDate = date('Y-m-d H:i:s');
+                        $fileEntity->location = $savedFiles[$i]["filename"];
+                        $fileEntity->extension = pathinfo($savedFiles[$i]["filename"], PATHINFO_EXTENSION);
 
-                $this->fileRepository->addFile($fileEntity);
+                        $this->fileRepository->addFile($fileEntity);
+                    }
+                } else {
+                    $filePath = Utils::combinePaths(array($userId, $fileEntity->folderId, $file["name"]));
+                    array_push($savedFiles, array("filename" => $filePath));
+                    $this->addFileInternal($fileEntity, $file, $filePath);
+                }
+
                 return true;
+            } catch (DatabaseExecutionException $e) {
+                for ($i=0; $i < count($savedFiles); $i++) { 
+                    $this->contentRepository->deleteFile($savedFiles[$i]["filename"]);
+                }
 
-             } catch (DatabaseExecutionException $e) {
-                $this->contentRepository->deleteFile($filePath);
                 return new ErrorResult([
                     $e->getMessage()
                 ]);
-             }
+            }
+        }
+
+        private function addFileInternal($fileEntity, $file, $filePath) {
+            $savedFilePath = $this->contentRepository->addFile($file["tmp_name"], $filePath);
+
+            $fileEntity->size = $file["size"];
+            $fileEntity->storeDate = date('Y-m-d H:i:s');
+            $fileEntity->location = $savedFilePath;
+            $fileEntity->extension = pathinfo($file["name"], PATHINFO_EXTENSION);
+
+            $this->fileRepository->addFile($fileEntity);
         }
 
         public function deleteFile($fileId) {
@@ -70,11 +95,12 @@
 
             $file = $this->fileRepository->getFile($fileId);
             $result = $this->fileRepository->deleteFile($fileId);
-
+        
             if($result) {
-                $url = Utils::combinePaths(array($userId, $file->folderId, $fileId));
-                $this->contentRepository->deleteFolder($url);
+                $this->contentRepository->deleteFile($file->location);
             }
+
+            return $result;
         }
 
         public function editFile($fileId) {

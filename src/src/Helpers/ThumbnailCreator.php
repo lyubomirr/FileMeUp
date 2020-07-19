@@ -12,9 +12,17 @@
                 mkdir($thumbnailsFolder);
             }
 
+            if (file_exists(Utils::combinePaths(array($thumbnailsFolder, $thumbnailName)))) {
+                return Utils::combinePaths(array("thumbnails", $thumbnailName));
+            }
+
             $dest = Utils::combinePaths(array($thumbnailsFolder, $thumbnailName));
             $src = Utils::combinePaths(array(Config::getUploadsPath(), $src));
 
+            if (!file_exists($src)) {
+                return null;
+            }
+            
             $type = exif_imagetype($src);
             if (!$type || !self::IMAGE_HANDLERS[$type]) {
                 return null;

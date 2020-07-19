@@ -1,13 +1,23 @@
 <?php
+    require_once(Config::constructFilePath("/Models/Exceptions/ArchiveCannotOpenException.php"));
+
     class ContentRepository {
-        public function deleteFolder($path) {
-            $folderPath = $this->getAbsolutePath($path);
+        public function deleteFolder($folderPath) {
+            $absoluteFolderPath = $this->getAbsolutePath($folderPath);
+
+            $this->deleteFolderInternal($absoluteFolderPath);
+        }
+
+        private function deleteFolderInternal($folderPath) {
 
             if(file_exists($folderPath)) {
-                $files = glob($folderPath . "/*");
-                foreach($files as $file){
-                    if(is_file($file))
-                        unlink($file);
+                $items = glob($folderPath . "/*");
+                foreach($items as $item) {
+                    if(is_file($item)) {
+                        unlink($item);
+                    } else {
+                        $this->deleteFolderInternal($item);
+                    }
                 }
 
                 rmdir($folderPath);
@@ -40,6 +50,51 @@
 
             move_uploaded_file($tmpName, $fullFilePath);
             return $filePath;
+        }
+
+        public function unzipFile($tmpName, $folderPath) {
+            
+            $fullFolderPath = $this->getAbsolutePath($folderPath);
+
+            if(!file_exists($fullFolderPath)) {
+                mkdir($fullFolderPath, 0777, true);
+            }
+
+            $zip = new ZipArchive;
+            if ($zip->open($tmpName) === TRUE) {
+                
+                $fileNames = [];
+                for ($i = 0; $i < $zip->numFiles; $i++) {
+                    
+                    $filename = $zip->getNameIndex($i);
+                    if (!pathinfo($filename, PATHINFO_EXTENSION)) {
+                        continue;
+                    }
+                
+                    $newFileName = pathinfo($filename, PATHINFO_BASENAME);
+                    if(file_exists(Utils::combinePaths(array($fullFolderPath, $newFileName)))) {
+                        $fileNumber = 1;
+                        $newPath = self::generateNewFilePath($newFileName, $fileNumber);
+                        while(file_exists($this->getAbsolutePath($newPath))) {
+                            $fileNumber++;
+                            $newPath = self::generateNewFilePath($newFileName, $fileNumber);
+                        }
+                        
+                        $newFileName = $newPath;
+                    }
+
+                    copy("zip://".$tmpName."#".$filename, Utils::combinePaths(array($fullFolderPath, $newFileName)));
+                    
+                    $newFileName = Utils::combinePaths(array($folderPath, $newFileName));
+                    $size = $zip->statIndex($i)['size'];
+                    array_push($fileNames, array("filename" => $newFileName, "size" => $size));
+                }
+                $zip->close();
+
+                return $fileNames;
+            } else {
+                throw new ArchiveCannotOpenException($tmpName + "cannot be opened!");   
+            }
         }
 
         private static function generateNewFilePath($filePath, $number) {

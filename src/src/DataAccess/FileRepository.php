@@ -39,6 +39,7 @@
             
             if($searchQuery != null && $searchQuery->searchValue != "") {
                 $sql = $sql . " && name LIKE '{$searchQuery->searchValue}%'";
+                $sql = $sql . "LIMIT {$searchQuery->start}, {$searchQuery->count}";
             }
 
             $result = $this->databaseAdapter->fetchStatement($sql, ["folderId" => $folderId]);

@@ -36,14 +36,19 @@
                     </div>
                     <div id="files-information">
                     </div>
+                    <div id="loader-spinner" class="loader"></div>
                     <div class="grid" id="files-grid">     
                     </div>
                 </div>
+                <?php
+                    require_once("templates/confirmModal.php");
+                ?>
             </section>  
         </main>
         <script type="text/javascript" src="js/searchQuery.js"></script>
         <script type="text/javascript" src="js/api/ApiFacade.js"></script>
         <script type="text/javascript" src="js/Utils.js"></script>
+        <script type="text/javascript" src="js/confirmModal.js"></script>
         <script type="text/javascript" src="js/files.js"></script>
 </body>
 

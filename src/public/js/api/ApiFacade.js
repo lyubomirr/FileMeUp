@@ -120,12 +120,12 @@ class ApiFacade {
         return this.delete("delete-folder.php", { folderId: folderId });
     }
 
-    static openFolder(folderId) {
-
-    }
-
     static getFileById(fileId) {
         return this.get("get-file.php", { fileId: fileId });
+    }
+
+    static deleteFile(fileId) {
+        return this.delete("delete-file.php", { fileId: fileId });
     }
 
     static getFolderById(folderId) {

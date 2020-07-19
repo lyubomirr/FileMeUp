@@ -30,7 +30,7 @@
     $filesService = new FilesService();
     
     $filesSerialized = [];
-    $files = $filesService->getFiles($folderId, $searchQuery, $_SESSION["userId"]);
+    $files = $filesService->getFiles($folderId, $searchQuery, Utils::getUserId());
     for ($i=0; $i < count($files); $i++) { 
         array_push($filesSerialized, $files[$i]->jsonSerialize());
     }
