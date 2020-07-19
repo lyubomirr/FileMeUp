@@ -2,6 +2,7 @@
     require_once("templates/globals.php"); 
     require_once(Config::constructFilePath("/Business/FilesService.php")); 
     require_once(Config::constructFilePath("/Models/Dto/ErrorResult.php"));
+    require_once(Config::constructFilePath("/Models/Dto/ContentMimeTypeFile.php"));
 
     session_start();
     if(!Utils::isLoggedIn()) {
@@ -28,6 +29,10 @@
         echo json_encode(new ErrorResult(["You don't have permissions to view this file."]));
         die();
     }
-    
-    echo json_encode($file);
+
+    $fullPath = $filesService->getFileFullPath($file->location);
+    $fileWithMimeType = new ContentMimeTypeFile($file);
+    $fileWithMimeType->mimeType = mime_content_type($fullPath);
+
+    echo json_encode($fileWithMimeType);
 ?>

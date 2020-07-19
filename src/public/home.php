@@ -28,9 +28,7 @@
                 <div class="folders-root section border">
                     <div class="information-row">
                         <h3 class="heading folders-heading">Folders</h3>
-                        <span>
-                            <i class="fas fa-plus-square add-icon" title="Add folder"></i>
-                        </span>
+                        <i class="fas fa-plus-square add-icon" title="Add folder"></i>
                     </div>
                     <div>
                         <table class="table" id="folders_table">

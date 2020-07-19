@@ -11,38 +11,27 @@
     require_once(Config::constructFilePath("/Models/Dto/ErrorResult.php")); 
 
     session_start();
+    Utils::redirectIfUnauthorized();
 
-    if(!Utils::isLoggedIn()) {
-        http_response_code(401);
+    if(!isset($_GET["folderId"])) {
+        http_response_code(400);
+        echo json_encode(new ErrorResult(["No folder id provided!"]));
         die();
     }
 
     $folderId = $_GET['folderId'];
 
-    $searchQuery = new SearchQuery();
-    if(isset($_GET['searchValue'])) {
-        $searchQuery->searchValue = $_GET['searchValue']; 
-    }
-    if(isset($_GET['start'])) {
-        $searchQuery->start = $_GET['start']; 
-    }
-    if(isset($_GET['count'])) {
-        $searchQuery->count = $_GET['count']; 
-    }
-
     $filesService = new FilesService();
-    
-    $filesSerialized = [];
+    $searchQuery = new SearchQuery();
 
     try {
-        $files = $filesService->getFilesWithThumbnails($folderId, $searchQuery, Utils::getUserId());
+        $files = $filesService->getFilesByFolder($folderId, Utils::getUserId());
     } catch(UnauthorizedException $ex) {
         echo json_encode(new ErrorResult([$ex->getMessage()]));
         die();
     }
 
-    for ($i=0; $i < count($files); $i++) { 
-        array_push($filesSerialized, $files[$i]->jsonSerialize());
-    }
-    echo json_encode($filesSerialized);
+    header("Content-disposition: attachment; filename=" . "folder-" . $folderId . ".json");
+    header("Content-Type: application/json");
+    echo json_encode($files);
 ?>

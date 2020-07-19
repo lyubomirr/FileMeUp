@@ -8,6 +8,7 @@
     require_once(Config::constructFilePath("/Helpers/ThumbnailCreator.php"));
     require_once(Config::constructFilePath("/Models/Exceptions/DatabaseExecutionException.php"));
     require_once(Config::constructFilePath("/Utils.php"));
+    require_once(Config::constructFilePath("/Models/Dto/SearchQuery.php")); 
     
     class FilesService {
         private $fileRepository;
@@ -20,10 +21,10 @@
             $this->contentRepository = new ContentRepository();
         }
 
-        public function getFiles($folderId, $searchQuery, $userId) {
+        public function getFilesWithThumbnails($folderId, $searchQuery, $userId) {
             $folder = $this->folderRepository->getFolder($folderId);
             if($folder->ownerId != $userId) {
-                throw new Exception("");
+                throw new UnauthorizedException("You don't have permissions to fetch this folder!");
             }
 
             $files = $this->fileRepository->getFilesByFolderId($folderId, $searchQuery);
@@ -41,6 +42,15 @@
             }
 
             return $filesResult;
+        }
+
+        public function getFilesByFolder($folderId, $userId) {
+            $folder = $this->folderRepository->getFolder($folderId);
+            if($folder->ownerId != $userId) {
+                throw new UnauthorizedException("You don't have permissions to fetch this folder!");
+            }
+            
+            return $this->fileRepository->getFilesByFolderId($folderId, new SearchQuery());
         }
 
         public function addFile($userId, $fileEntity, $file) {

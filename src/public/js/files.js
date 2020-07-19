@@ -9,8 +9,11 @@
 
     ApiFacade.getFiles(folderId)
         .then(response => {
+            addExportButtonListener(folderId);
+            addUploadButtonListener(folderId);
             fillGrid(response);
-        });
+        })
+        .catch(err => Utils.showErrorMessageInSection(err.errorMessages));
 
     var searchInput = document.getElementById("search-input");
     searchInput.addEventListener("keyup", function(event) {
@@ -21,7 +24,10 @@
 
             let searchQuery = new SearchQuery(searchValue, 100, 0);
             ApiFacade.getFiles(folderId, searchQuery)
-                .then(response => fillGrid(response));
+                .then(response => {
+                    fillGrid(response)
+                })
+                .catch(err => Utils.showErrorMessageInSection(err.errorMessages));
         }
     });
 
@@ -73,6 +79,20 @@
         }
         filesGrid.innerHTML = filesGridHTML;
         filesInformation.innerHTML = filesInformationHTML;
+    }
+
+    function addExportButtonListener(folderId) {
+        const btn = document.getElementsByClassName("export-icon")[0];
+        btn.addEventListener("click", () => {
+            window.open(`export-folder-metadata.php?folderId=${folderId}`);
+        })
+    }
+
+    function addUploadButtonListener(folderId) {
+        const btn = document.getElementsByClassName("add-icon")[0];
+        btn.addEventListener("click", () => {
+            window.location = `upload-file.php?folderId=${folderId}`;
+        })
     }
 
     function getFileIconFromExtension(extension) {

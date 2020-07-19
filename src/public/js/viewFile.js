@@ -30,6 +30,39 @@
         window.location.href = "folder.php?folderId=" + folderId;
     }
 
+    function showViewer(file) {
+        console.log(file)
+        const viewSection = document.getElementById("file-view-section");
+        if (file.mimeType.startsWith("image")) {
+            viewSection.innerHTML = `<img class="file-preview" src="get-file-content.php?fileId=${file.id}" />`;
+            return;
+        }
+
+        if (file.mimeType.startsWith("video")) {
+            viewSection.innerHTML =
+                `<video class="file-preview" controls>
+                    <source src="get-file-content.php?fileId=${file.id}" type="${file.mimeType}">
+                    Your browser does not support the video tag.
+                </video>`;
+            return;
+        }
+
+        if (file.mimeType.startsWith("audio")) {
+            viewSection.innerHTML =
+                `<audio class="file-preview" controls>
+                    <source src="get-file-content.php?fileId=${file.id}" type="${file.mimeType}">
+                    Your browser does not support the audio tag.
+                </audio>`;
+            return;
+        }
+
+        if (file.mimeType.startsWith("text") || file.mimeType == "application/pdf") {
+            viewSection.innerHTML =
+                `<iframe class="file-preview" src="get-file-content.php?fileId=${file.id}" title="${file.name}"></iframe>`;
+            return;
+        }
+    }
+
     const urlParams = new URLSearchParams(window.location.search);
     const fileId = urlParams.get("fileId");
 
@@ -48,6 +81,7 @@
             addBackButtonListener(file.folderId);
             addDownloadButtonListener(fileId);
             populateFields(file);
+            showViewer(file);
         })
         .catch(err => {
             Utils.showErrorMessageInSection(err.errorMessages);
