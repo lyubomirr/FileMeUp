@@ -14,6 +14,7 @@
         .then(response => {
             fillGrid(response);
             addConfirmModalEvent(response, "fa-trash", "deleteFileAndCloseModal");
+            addShareModalEvent(response);
         })
         .catch(err => Utils.showErrorMessageInSection(err.errorMessages));
 
@@ -30,6 +31,7 @@
                 .then(response => {
                     fillGrid(response)
                     addConfirmModalEvent(response, "fa-trash", "deleteFileAndCloseModal");
+                    addShareModalEvent(response);
                 })
                 .catch(err => Utils.showErrorMessageInSection(err.errorMessages));
         }
@@ -130,6 +132,7 @@ function updateGridAndAddEvents(searchQuery) {
         .then(response => {
             fillGrid(response);
             addConfirmModalEvent(response, "fa-trash", "deleteFileAndCloseModal");
+            addShareModalEvent(response);
         });
 }
 

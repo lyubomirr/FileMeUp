@@ -33,4 +33,16 @@ CREATE TABLE `Files` (
   FOREIGN KEY (folderId) REFERENCES Folders(id) on delete cascade
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `Links` (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  token varchar(100) NOT NULL,
+  user varchar(100) NOT NULL,
+  fileId int(11) NOT NULL,
+  password varchar(100) NULL,
+  validUntil datetime NULL,
+  sharesLeft int(6) NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (fileId) REFERENCES Files(id) on delete cascade
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 COMMIT;

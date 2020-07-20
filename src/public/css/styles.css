@@ -677,6 +677,10 @@ button.close {
     100% { transform: rotate(360deg); }
 }
 
+.share-option {
+    margin-bottom: 8px;
+}
+
 .hide {
     display: none;
 }

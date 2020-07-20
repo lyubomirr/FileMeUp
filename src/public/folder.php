@@ -41,6 +41,7 @@
                 </div>
                 <?php
                     require_once("templates/confirmModal.php");
+                    require_once("templates/shareModal.php");
                 ?>
             </section>  
         </main>
@@ -48,6 +49,7 @@
         <script type="text/javascript" src="js/api/ApiFacade.js"></script>
         <script type="text/javascript" src="js/Utils.js"></script>
         <script type="text/javascript" src="js/confirmModal.js"></script>
+        <script type="text/javascript" src="js/shareModal.js"></script>
         <script type="text/javascript" src="js/files.js"></script>
 </body>
 

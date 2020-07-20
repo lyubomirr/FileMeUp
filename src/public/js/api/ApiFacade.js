@@ -124,6 +124,10 @@ class ApiFacade {
         return this.get("get-file.php", { fileId: fileId });
     }
 
+    static getFileByToken(token) {
+        return this.get("get-file-with-token.php", { token: token });
+    }
+
     static deleteFile(fileId) {
         return this.delete("delete-file.php", { fileId: fileId });
     }
@@ -134,5 +138,9 @@ class ApiFacade {
 
     static uploadFile(fileFormData) {
         return this.postFormData("add-file.php", fileFormData);
+    }
+
+    static validatePassword(formData) {
+        return this.postFormData("validate-link-password.php", formData);
     }
 }
