@@ -14,25 +14,24 @@
         document.getElementById("shared-by").innerText = "";
     }
 
-    function addDownloadButtonListener(fileId) {
+    function addDownloadButtonListener(token) {
         const downloadBtn = document.getElementById("download-button");
         downloadBtn.addEventListener("click", () => {
-            window.open(`get-file-content.php?fileId=${fileId}&download=true`);
+            window.open(`get-file-content.php?token=${token}&download=true`);
         })
     }
 
-    function showViewer(file) {
-        console.log(file)
+    function showViewer(file, token) {
         const viewSection = document.getElementById("file-view-section");
         if (file.mimeType.startsWith("image")) {
-            viewSection.innerHTML = `<img class="file-preview" src="get-file-content.php?fileId=${file.id}" />`;
+            viewSection.innerHTML = `<img class="file-preview" src="get-file-content.php?token=${token}" />`;
             return;
         }
 
         if (file.mimeType.startsWith("video")) {
             viewSection.innerHTML =
                 `<video class="file-preview" controls>
-                    <source src="get-file-content.php?fileId=${file.id}" type="${file.mimeType}">
+                    <source src="get-file-content.php?token=${token}" type="${file.mimeType}">
                     Your browser does not support the video tag.
                 </video>`;
             return;
@@ -41,7 +40,7 @@
         if (file.mimeType.startsWith("audio")) {
             viewSection.innerHTML =
                 `<audio class="file-preview" controls>
-                    <source src="get-file-content.php?fileId=${file.id}" type="${file.mimeType}">
+                    <source src="get-file-content.php?token=${token}" type="${file.mimeType}">
                     Your browser does not support the audio tag.
                 </audio>`;
             return;
@@ -49,7 +48,7 @@
 
         if (file.mimeType.startsWith("text") || file.mimeType == "application/pdf") {
             viewSection.innerHTML =
-                `<iframe class="file-preview" src="get-file-content.php?fileId=${file.id}" title="${file.name}"></iframe>`;
+                `<iframe class="file-preview" src="get-file-content.php?token=${token}" title="${file.name}"></iframe>`;
             return;
         }
     }
@@ -69,9 +68,9 @@
                 return;
             }
 
-            addDownloadButtonListener(file.id);
+            addDownloadButtonListener(token);
             populateFields(file);
-            showViewer(file);
+            showViewer(file, token);
         })
         .catch(err => {
             Utils.showErrorMessageInSection(err.errorMessages);

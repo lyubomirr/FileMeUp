@@ -58,7 +58,6 @@
 
         public function getFileByToken($linkToken) {
             $link = $this->linkRepository->getLink($linkToken);
-
             return $this->fileRepository->getFile($link->fileId);
         }
     }

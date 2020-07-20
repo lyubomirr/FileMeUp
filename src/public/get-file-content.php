@@ -1,6 +1,7 @@
 <?php
     require_once("templates/globals.php"); 
     require_once(Config::constructFilePath("/Business/FilesService.php")); 
+    require_once(Config::constructFilePath("/Business/LinksService.php")); 
     require_once(Config::constructFilePath("/Models/Entities/File.php")); 
     require_once(Config::constructFilePath("/Models/Dto/ErrorResult.php")); 
 
@@ -9,28 +10,48 @@
         return pathinfo($filePath, PATHINFO_FILENAME) . "." . pathinfo($filePath, PATHINFO_EXTENSION);
     }
 
+    function checkForParameters() {
+        if(Utils::isLoggedIn()) {
+            if(!isset($_GET["fileId"]) && !isset($_GET["token"])) {
+                http_response_code(400);
+                echo json_encode(new ErrorResult(["No fileId or token provided!"]));
+                die();
+            }
+        } else {
+            if(!isset($_GET["token"])) {
+                Utils::redirectIfUnauthorized();
+                die();
+            }
+        }
+    }
+
+    function assertFileNotNull($file) {
+        if(is_null($file)) {
+            echo json_encode(new ErrorResult(["No file found!"]));
+            die();
+        }
+    }
+
     session_start();
-    Utils::redirectIfUnauthorized();
-
-    if(!isset($_GET["fileId"])) {
-        http_response_code(400);
-        die();
-    }
-
-    $fileId = $_GET["fileId"];
-
+    checkForParameters();
     $filesService = new FilesService();
-    $file = $filesService->getFileById($fileId);
-    if(is_null($file)) {
-        echo json_encode(new ErrorResult(["No file with correspoding id!"]));
-        die();
-    }
-    
-    if($file->folder->ownerId != Utils::getUserId()) {
-        http_response_code(403);
-        die();
+
+    if(isset($_GET["fileId"])) {
+        $file = $filesService->getFileById($_GET["fileId"]);
+
+        assertFileNotNull($file);
+
+        if($file->folder->ownerId != Utils::getUserId()) {
+            http_response_code(403);
+            die();
+        }
+    } else {
+        $linksService = new LinksService();
+        $file = $linksService->getFileByToken($_GET["token"]);
+        assertFileNotNull($file);
     }
 
+    
     if(isset($_GET["download"]) && filter_var($_GET["download"], FILTER_VALIDATE_BOOLEAN)) {
         header("Content-disposition: attachment; filename=" . getFileName($file->location));
     } else {

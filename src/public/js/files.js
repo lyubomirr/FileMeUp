@@ -24,7 +24,7 @@
             let searchValue = event.target.value;
             const urlParams = new URLSearchParams(window.location.search);
             const folderId = urlParams.get("folderId");
-            
+
             showLoader();
             let searchQuery = new SearchQuery(searchValue, 100, 0);
             ApiFacade.getFiles(folderId, searchQuery)
@@ -66,25 +66,25 @@ function fillGrid(response) {
 
             filesGridHTML = filesGridHTML +
                 "<div class='file-item'>" +
-                    `<a href=view-file.php?fileId=${file.id}>` +
-                        "<div class='file-content'>" +
-                            "<div class='" + contentClassList + "'>" +
-                                "<img src='" + contentImage + "'>" +
-                            "</div>" +
-                            "<div class='file-data'>" +
-                                "<div class='file-type-icon'>" +
-                                    "<img class='file-icon' src='" + fileIcon + "'></i>" +
-                                "</div>" +
-                                "<div class='file-name'>" +
-                                    file.name +
-                                "</div>" +
-                            "</div>" +
-                    "</a>" +
-                            "<div class='file-options'>" +
-                                "<i class='fa fa-share-alt file-option' title='Share'></i>" +
-                                "<i class='fa fa-trash file-option' title='Delete file'></i>" +
-                            "</div>" +
-                        "</div>" +
+                `<a href=view-file.php?fileId=${file.id}>` +
+                "<div class='file-content'>" +
+                "<div class='" + contentClassList + "'>" +
+                "<img src='" + contentImage + "'>" +
+                "</div>" +
+                "<div class='file-data'>" +
+                "<div class='file-type-icon'>" +
+                "<img class='file-icon' src='" + fileIcon + "'></i>" +
+                "</div>" +
+                "<span class='file-name'>" +
+                file.name +
+                "</span>" +
+                "</div>" +
+                "</a>" +
+                "<div class='file-options'>" +
+                "<i class='fa fa-share-alt file-option share-icon' title='Share'></i>" +
+                "<i class='fa fa-trash file-option delete-icon' title='Delete file'></i>" +
+                "</div>" +
+                "</div>" +
                 "</div>";
         }
     }

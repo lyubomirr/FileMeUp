@@ -5,6 +5,11 @@
     require_once(Config::constructFilePath("/Business/LinksService.php")); 
     
     $linksService = new LinksService();
+    if(!isset($_GET["token"])) {
+        echo json_encode(new ErrorResult(["No token provided!"]));
+        http_response_code(400);
+        die();
+    }
     $token = $_GET["token"];
 
     if (isset($_POST["password"])) {
