@@ -6,17 +6,15 @@
     class Link extends BaseEntity implements JsonSerializable {
         private $token;
         private $fileId;
-        private $user;
         private $password;
         private $sharesLeft;
         private $validUntil;
 
-        public function __construct($id = 0, $token = "", $fileId = 0, $user = "") {
+        public function __construct($id = 0, $token = "", $fileId = 0) {
             parent::__construct($id);
             
             $this->token = $token;
             $this->fileId = $fileId;
-            $this->user = $user;
         }
 
         use GetSetBehaviour;

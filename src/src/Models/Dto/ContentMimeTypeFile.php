@@ -11,7 +11,6 @@
         private $size;
         private $location;
         private $storeDate;
-        private $lastModifiedDate;
         private $extension;
         private $mimeType;
 
@@ -24,7 +23,6 @@
             $this->size = $file->size;
             $this->location = $file->location;
             $this->storeDate = $file->storeDate;
-            $this->lastModifiedDate = $file->lastModifiedDate;
             $this->extension = $file->extension;
         }
         

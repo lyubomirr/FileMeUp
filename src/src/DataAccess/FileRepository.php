@@ -13,8 +13,8 @@
         }
 
         public function addFile($file) {
-            $sql = "INSERT INTO `{$this->tableName}` (`name`, `folderId`, `description`, `size`, `extension`, `location`, `storeDate`, `lastModifiedDate`) 
-                    VALUES (:name, :folderId, :description, :size, :extension, :location, :storeDate, :lastModifiedDate) ";
+            $sql = "INSERT INTO `{$this->tableName}` (`name`, `folderId`, `description`, `size`, `extension`, `location`, `storeDate`) 
+                    VALUES (:name, :folderId, :description, :size, :extension, :location, :storeDate) ";
             
             $result = $this->databaseAdapter->executeCommand($sql, [
                 "name" => $file->name,
@@ -23,8 +23,7 @@
                 "size" => $file->size,
                 "extension" => $file->extension,
                 "location" => $file->location,
-                "storeDate" => $file->storeDate,
-                "lastModifiedDate" => $file->lastModifiedDate
+                "storeDate" => $file->storeDate
             ]);
 
             if(!$result) {
@@ -39,7 +38,6 @@
             
             if($searchQuery != null && $searchQuery->searchValue != "") {
                 $sql = $sql . " && name LIKE '{$searchQuery->searchValue}%'";
-                $sql = $sql . "LIMIT {$searchQuery->start}, {$searchQuery->count}";
             }
 
             $result = $this->databaseAdapter->fetchStatement($sql, ["folderId" => $folderId]);
@@ -75,7 +73,7 @@
         public function updateFile($file) {
             $sql = "UPDATE `{$this->tableName}` 
                     SET `name` = :name, `folderId` = :folderId, `description` = :description, 
-                    `size` = :size, `location` = :location, `storeDate` = :storeDate, `lastModifiedDate` = :lastModifiedDate
+                    `size` = :size, `location` = :location, `storeDate` = :storeDate
                     WHERE `id` = :id";
             
             return $this->databaseAdapter->executeCommand($sql, [
@@ -85,8 +83,7 @@
                 "description" => $file->description,
                 "size" => $file->size,
                 "location" => $file->location,
-                "storeDate" => $file->storeDate,
-                "lastModifiedDate" => $file->lastModifiedDate
+                "storeDate" => $file->storeDate
             ]);
         }
 

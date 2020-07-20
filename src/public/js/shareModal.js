@@ -39,12 +39,19 @@ function showShareLink(token) {
     const link = pathname.substring(0, pathname.lastIndexOf("/") + 1) + "open-link.php?token=" + token;
 
     let formGroup = document.getElementsByClassName("form-group")[0];
-    formGroup.innerHTML = "<input id='link' type='text' readonly value='" + window.location.origin + link + "'>";
+    formGroup.classList.add("hide");
+
+    const linkInput = document.getElementById("link");
+    linkInput.setAttribute("value", window.location.origin + link);
+    linkInput.classList.remove("hide");
 
     let submitButton = document.getElementById("submit");
     submitButton.innerHTML = "Copy link";
     submitButton.setAttribute("type", "button");
     submitButton.setAttribute("onclick", "copyLinkToClipboard()");
+
+    const errorList = document.getElementById("error-list");
+    errorList.innerHTML = "";
 }
 
 function copyLinkToClipboard() {
@@ -53,8 +60,29 @@ function copyLinkToClipboard() {
 }
 
 function closeShareModal() {
+    resetShareModal();
+
     var shareModal = document.getElementById("share-modal");
     if (shareModal.classList.contains("show")) {
         shareModal.classList.remove("show");
     }
+}
+
+function resetShareModal() {
+    let formGroup = document.getElementsByClassName("form-group")[0];
+    if (formGroup.classList.contains("hide"))
+        formGroup.classList.remove("hide");
+
+    let inputs = document.getElementsByClassName("share-option");
+    for (let i = 0; i < inputs.length; i++) {
+        const input = inputs[i];
+        input.value = "";
+    }
+
+    const linkInput = document.getElementById("link");
+    linkInput.classList.add("hide");
+
+    let submitButton = document.getElementById("submit");
+    submitButton.innerHTML = "Create link";
+    submitButton.setAttribute("type", "submit");
 }

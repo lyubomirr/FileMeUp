@@ -15,7 +15,22 @@
         }
 
         public function getLink($linkToken) {
-            return $this->linkRepository->getLink($linkToken);
+            $link = $this->linkRepository->getLink($linkToken);
+
+            if (is_null($link))
+                return null;
+
+            if(!is_null($link->sharesLeft) && $link->sharesLeft < 1) {
+                $this->linkRepository->deleteLink($link->id);
+                return null;
+            }
+
+            if(!is_null($link->validUntil) && strtotime($link->validUntil) < time()) {
+                $this->linkRepository->deleteLink($link->id);
+                return null;
+            }
+
+            return $link;
         }
         
         public function generateLink($linkSettings)
@@ -23,8 +38,6 @@
             $link = new Link();
             $link->token = sha1(mt_rand(1, 90000));
             $link->fileId = $linkSettings->fileId;
-            //TODO
-            $link->user = "";
 
             if(trim($linkSettings->password) !== '')
                 $link->password = password_hash($linkSettings->password, PASSWORD_DEFAULT);
@@ -58,6 +71,10 @@
 
         public function getFileByToken($linkToken) {
             $link = $this->linkRepository->getLink($linkToken);
+            $link->sharesLeft--;
+
+            $this->linkRepository->updateLink($link);
+
             return $this->fileRepository->getFile($link->fileId);
         }
     }
