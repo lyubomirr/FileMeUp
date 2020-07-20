@@ -1,6 +1,7 @@
 <?php 
     require_once(Config::constructFilePath("/Models/Entities/Link.php"));
     require_once(Config::constructFilePath("/Models/Dto/ErrorResult.php"));
+    require_once(Config::constructFilePath("/Models/Dto/LinkSettings.php"));
     require_once(Config::constructFilePath("/DataAccess/LinkRepository.php"));
     require_once(Config::constructFilePath("/DataAccess/FileRepository.php"));
 
@@ -76,6 +77,16 @@
             $this->linkRepository->updateLink($link);
 
             return $this->fileRepository->getFile($link->fileId);
+        }
+
+        public function getOrCreatePermanentTokenForFile($fileId) {
+            $token = $this->linkRepository->getPermanentLinkToken($fileId);
+            if(!is_null($token)) {
+                return $token;
+            }
+
+            $settings = new LinkSettings($fileId);
+            return $this->generateLink($settings);
         }
     }
 ?>

@@ -81,11 +81,15 @@ function fillGrid(response) {
                 "</div>" +
                 "</a>" +
                 "<div class='file-options'>" +
-                "<i class='fa fa-share-alt file-option share-icon' title='Share'></i>" +
-                "<i class='fa fa-trash file-option delete-icon' title='Delete file'></i>" +
-                "</div>" +
-                "</div>" +
-                "</div>";
+                "<i class='fa fa-share-alt file-option share-icon' title='Share'></i>";
+
+            if (file.externalAppUrl) {
+                filesGridHTML += `<a href="${file.externalAppUrl}" target="_blank">` +
+                    "<i class='fas fa-external-link-alt file-option external-app-icon' title='Open in external app'></i>" +
+                    "</a>";
+            }
+
+            filesGridHTML += "<i class='fa fa-trash file-option delete-icon' title='Delete file'></i></div></div></div>";
         }
     }
     filesGrid.innerHTML = filesGridHTML;

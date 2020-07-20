@@ -241,7 +241,8 @@ hr {
 .add-icon,
 .export-icon,
 .share-icon,
-.delete-icon {
+.delete-icon,
+.external-app-icon {
     transition: 0.2s ease;
     vertical-align: bottom;
 }
@@ -284,6 +285,15 @@ hr {
 
 .delete-icon:hover {
     color: var(--main-color);
+}
+
+.external-app-icon {
+    font-size: 1rem;
+    color: var(--third-color);
+}
+
+.external-app-icon:hover {
+    color: var(--second-color);
 }
 
 .h-100 {

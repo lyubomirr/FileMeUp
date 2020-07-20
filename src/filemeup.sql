@@ -43,4 +43,31 @@ CREATE TABLE `Links` (
   FOREIGN KEY (fileId) REFERENCES Files(id) on delete cascade
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `externalapps` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `url` varchar(200) NOT NULL,
+   PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `externalapps` (`id`, `name`, `url`) VALUES
+(1, 'MeTube', 'http://localhost:8080/videoapp?videoUrl=%s');
+
+CREATE TABLE `extensiontoapp` (
+  `id` int(11) NOT NULL,
+  `extension` varchar(50) NOT NULL,
+  `appId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `extensiontoapp`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `extension` (`extension`),
+  ADD KEY `appId` (`appId`);
+
+INSERT INTO `extensiontoapp` (`id`, `extension`, `appId`) VALUES
+(1, 'mp4', 1);
+
+ALTER TABLE `extensiontoapp`
+  ADD CONSTRAINT `fk_extensiontoapp_externalapps` FOREIGN KEY (`appId`) REFERENCES `externalapps` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 COMMIT;

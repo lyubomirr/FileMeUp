@@ -3,6 +3,8 @@
     require_once(Config::constructFilePath("/DataAccess/FileRepository.php"));
     require_once(Config::constructFilePath("/DataAccess/FolderRepository.php"));
     require_once(Config::constructFilePath("/DataAccess/ContentRepository.php"));
+    require_once(Config::constructFilePath("/DataAccess/ExternalAppsRepository.php"));
+    require_once(Config::constructFilePath("/Business/LinksService.php"));
     require_once(Config::constructFilePath("/Models/Dto/FileBaseResult.php"));
     require_once(Config::constructFilePath("/Models/Dto/FileBaseResult.php"));
     require_once(Config::constructFilePath("/Helpers/ThumbnailCreator.php"));
@@ -14,11 +16,15 @@
         private $fileRepository;
         private $folderRepository;
         private $contentRepository;
+        private $externalAppsRepository;
+        private $linksService;
 
         public function __construct() {
             $this->fileRepository = new FileRepository();
             $this->folderRepository = new FolderRepository();
             $this->contentRepository = new ContentRepository();
+            $this->externalAppsRepository = new ExternalAppsRepository();
+            $this->linksService = new LinksService();
         }
 
         public function getFilesWithThumbnails($folderId, $searchQuery, $userId) {
@@ -35,13 +41,28 @@
 
                 $thumbnailPath = ThumbnailCreator::createThumbnail($file->location, 120, 200);
                 $hasThumbnail = $thumbnailPath != null; 
-
-                $fileResult = new FileBaseResult($file->id, $file->name, str_replace(".", "", $file->extension), $thumbnailPath, $hasThumbnail);
+                $externalAppUrl = $this->getExternalAppUrl($file);
+               
+                $fileResult = new FileBaseResult($file->id, $file->name, 
+                str_replace(".", "", $file->extension), $thumbnailPath, 
+                $hasThumbnail, $externalAppUrl);
 
                 array_push($filesResult, $fileResult);
             }
 
             return $filesResult;
+        }
+
+        private function getExternalAppUrl($file) {
+            $externalApp = $this->externalAppsRepository->getExternalApp($file->extension);
+            if(is_null($externalApp)) {
+                return "";
+            }
+
+            $token = $this->linksService->getOrCreatePermanentTokenForFile($file->id);
+            $shareUrl = Utils::getAppFullUrl() . "/get-file-content.php?token=" . $token;
+            $url = sprintf($externalApp->url, urlencode($shareUrl));
+            return $url;
         }
 
         public function getFilesByFolder($folderId, $userId) {

@@ -59,5 +59,17 @@
             $sql = "DELETE FROM `{$this->tableName}` WHERE `id` = :id";
             return $this->databaseAdapter->executeCommand($sql, ["id" => $id]);
         }
+
+        public function getPermanentLinkToken($fileId) {
+            $sql = "SELECT * FROM `{$this->tableName}` WHERE `fileId`= :fileId AND `password` IS NULL
+            AND `validUntil` IS NULL AND sharesLeft IS NULL";
+
+            $result = $this->databaseAdapter->fetchStatement($sql, ["fileId" => $fileId]);
+            if(count($result) == 0) {
+                return null;
+            }
+            
+            return $result[0]["token"];
+        }
     }
 ?>

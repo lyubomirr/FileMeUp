@@ -7,8 +7,20 @@
         document.getElementById("file-name").append(file.name);
         document.getElementById("description").innerText = file.description;
         document.getElementById("extension").innerText = file.extension;
-        document.getElementById("size").innerText = file.size;
+        document.getElementById("size").innerText = getSize(file.size);
         document.getElementById("store-date").innerText = file.storeDate;
+    }
+
+    function getSize(fileSize) {
+        if (fileSize < 1000) {
+            return fileSize + " B";
+        }
+
+        if (fileSize < 1000 * 1000) {
+            return Math.round(fileSize / 1000, 1) + " KB";
+        }
+
+        return Math.round(fileSize / (1000 * 1000), 1) + " MB";
     }
 
     function addBackButtonListener(folderId) {
