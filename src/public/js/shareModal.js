@@ -85,4 +85,7 @@ function resetShareModal() {
     let submitButton = document.getElementById("submit");
     submitButton.innerHTML = "Create link";
     submitButton.setAttribute("type", "submit");
+
+    const errorList = document.getElementById("error-list");
+    errorList.innerHTML = "";
 }

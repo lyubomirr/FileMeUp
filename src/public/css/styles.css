@@ -378,8 +378,16 @@ a:hover {
     z-index: 9999;
 }
 
+@keyframes appear {
+    0%{
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+}
+
 .modal-dialog {
-    max-width: 30%;
+    width: 570px;
+    animation: appear 350ms ease-in 1;
     margin: 1.75em auto;
 }
 
