@@ -668,7 +668,6 @@ button.close {
     vertical-align: top;
     text-align: center;
     padding: 1rem;
-    max-height: 500px;
 }
 
 #file-name {
