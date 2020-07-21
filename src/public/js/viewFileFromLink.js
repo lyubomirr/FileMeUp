@@ -9,9 +9,6 @@
         document.getElementById("extension").innerText = file.extension;
         document.getElementById("size").innerText = file.size;
         document.getElementById("store-date").innerText = file.storeDate;
-        document.getElementById("last-modified-date").innerText = file.lastModifiedDate;
-        //TODO get user that shared the link
-        document.getElementById("shared-by").innerText = "";
     }
 
     function addDownloadButtonListener(token) {

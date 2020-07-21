@@ -9,7 +9,6 @@
         document.getElementById("extension").innerText = file.extension;
         document.getElementById("size").innerText = getSize(file.size);
         document.getElementById("store-date").innerText = file.storeDate;
-        document.getElementById("last-modified-date").innerText = file.lastModifiedDate;
     }
 
     function getSize(fileSize) {

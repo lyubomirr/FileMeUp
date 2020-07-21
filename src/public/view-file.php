@@ -34,8 +34,6 @@
                     <dd id="extension"></dd>
                     <dt>Store date</dt>
                     <dd id="store-date"></dd>
-                    <dt>Last modified date</dt>
-                    <dd id="last-modified-date"></dd>
                     
                 </dl>
                 <button class="btn btn-normal btn-primary" id="download-button">

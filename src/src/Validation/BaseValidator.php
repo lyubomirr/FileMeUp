@@ -33,5 +33,15 @@
                 array_push($errors, "The email in field '${fieldName}' is invalid.");
             }
         }
+
+        protected static function validateNumberValue($value, $fieldName, $minValue, &$errors) {
+            if($value == null) {
+                return;
+            }
+
+            if($value < $minValue) {
+                array_push($errors, "The field '${fieldName}' should be greater than ${minValue}");
+            }
+        }
     }
 ?>

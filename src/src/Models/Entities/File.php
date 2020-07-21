@@ -11,7 +11,6 @@
         private $size;
         private $location;
         private $storeDate;
-        private $lastModifiedDate;
         private $extension;
 
         public function __construct(
@@ -22,8 +21,7 @@
             $description = "", 
             $size = 0, 
             $location = "", 
-            $storeDate = "", 
-            $lastModifiedDate = "", 
+            $storeDate = "",
             $extension = "") {
             parent::__construct($id);
             
@@ -34,7 +32,6 @@
             $this->size = $size;
             $this->location = $location;
             $this->storeDate = $storeDate;
-            $this->lastModifiedDate = $lastModifiedDate;
             $this->extension = $extension;
         }
 

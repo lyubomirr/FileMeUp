@@ -12,12 +12,11 @@
         }
 
         public function addLink($link) {
-            $sql = "INSERT INTO `{$this->tableName}` (`token`, `fileId`, `user`, `password`, `validUntil`, `sharesLeft`) VALUES (:token, :fileId, :user, :password, :validUntil, :sharesLeft)";
+            $sql = "INSERT INTO `{$this->tableName}` (`token`, `fileId`, `password`, `validUntil`, `sharesLeft`) VALUES (:token, :fileId, :password, :validUntil, :sharesLeft)";
             
             $result = $this->databaseAdapter->executeCommand($sql, [
                 "token" => $link->token,
                 "fileId" => $link->fileId,
-                "user" => $link->user,
                 "password" => $link->password,
                 "validUntil" => $link->validUntil,
                 "sharesLeft" => $link->sharesLeft
@@ -43,14 +42,13 @@
 
         public function updateLink($link) {
             $sql = "UPDATE `{$this->tableName}`   
-                    SET `token` = :token, `fileId` = :fileId, `user` = :user, `password` = :password, `validUntil` = :validUntil, `sharesLeft` = :sharesLeft
+                    SET `token` = :token, `fileId` = :fileId, `password` = :password, `validUntil` = :validUntil, `sharesLeft` = :sharesLeft
                     WHERE `id` = :id";
             
             return $this->databaseAdapter->executeCommand($sql, [
                 "id" => $link->id,
                 "token" => $link->token,
                 "fileId" => $link->fileId,
-                "user" => $link->user,
                 "password" => $link->password,
                 "validUntil" => $link->validUntil,
                 "sharesLeft" => $link->sharesLeft

@@ -28,7 +28,6 @@ CREATE TABLE `Files` (
   extension varchar(10) NULL,
   location varchar(180) NOT NULL,
   storeDate datetime NOT NULL,
-  lastModifiedDate datetime NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (folderId) REFERENCES Folders(id) on delete cascade
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -36,7 +35,6 @@ CREATE TABLE `Files` (
 CREATE TABLE `Links` (
   id int(11) NOT NULL AUTO_INCREMENT,
   token varchar(100) NOT NULL,
-  user varchar(100) NOT NULL,
   fileId int(11) NOT NULL,
   password varchar(100) NULL,
   validUntil datetime NULL,

@@ -694,9 +694,7 @@ button.close {
 
 .loader {
     border: 10px solid #f3f3f3;
-    /* Light grey */
     border-top: 10px solid var(--main-color);
-    /* Blue */
     border-radius: 50%;
     width: 60px;
     height: 60px;
@@ -716,6 +714,13 @@ button.close {
 
 .share-option {
     margin-bottom: 8px;
+    margin-left: 5px;
+    width: 50% !important;
+}
+
+#link {
+    width: 100%;
+    font-size: 0.9em;
 }
 
 .hide {

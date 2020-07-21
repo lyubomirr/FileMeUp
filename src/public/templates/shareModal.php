@@ -9,14 +9,19 @@
             </div>
             <form id="share-modal-form">
                 <div class="modal-body">
+                <section>
+                    <ul id="error-list">
+                    </ul>
+                </section>
                     <div class="form-group">
                         <label for="password">Password to secure the link (optional)</label>
-                        <input type="text" class="main-input share-option" id="password-input" name="password" placeholder="Password">
+                        <input type="password" class="main-input share-option" id="password-input" name="password" placeholder="Password">
                         <label for="count">Maximum number of shares (optional)</label>
-                        <input type="number" class="main-input share-option" id="count-input" name="count" placeholder="Count">
-                        <label for="password">Date until the link is valid (optional)</label>
-                        <input type="date" class="main-input share-option" id="valid-until-input" name="validUntil" placeholder="Valid until">
+                        <input type="number" class="main-input share-option" min="1" id="count-input" name="count" placeholder="Count">
+                        <label for="validUntil">Date until the link is valid (optional)</label>
+                        <input type="datetime-local" class="main-input share-option" id="valid-until-input" name="validUntil" placeholder="Valid until">
                     </div>                    
+                    <input class="main-input hide" id='link' type='text' readonly>
                     <div class="alert alert-danger form-error-alert" role="alert">
                         <span class="error-info"></span>
                     </div>
