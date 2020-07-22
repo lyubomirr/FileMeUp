@@ -12,9 +12,16 @@
                     ?>
                 </li>
                 <li class="navbar-item">
-                <form action="logout.php" method="POST">
-                    <button type="submit" class="btn nav-btn">Logout</button>
-                </form>
+                    <a href="about.php" class="nav-link">About</a>
+                </li>
+                <li class="navbar-item">
+                <?php
+                    if(Utils::isLoggedIn()) { 
+                        echo '<form action="logout.php" method="POST">
+                                <button type="submit" class="btn nav-btn">Logout</button>
+                            </form>';
+                    }
+                ?>
                 </li>
             </ul>
         </div>

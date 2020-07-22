@@ -199,8 +199,8 @@ hr {
     text-decoration: none;
     color: white;
     line-height: calc(50px - 1rem);
-    margin-right: 1rem;
     font-size: 1.1rem;
+    margin: 0 auto;
 }
 
 .nav-btn {
@@ -209,6 +209,7 @@ hr {
     border: 0;
     font-size: 1.1rem;
     transition: 0.2s ease;
+    vertical-align: text-bottom;
 }
 
 .nav-btn:hover {
@@ -378,16 +379,8 @@ a:hover {
     z-index: 9999;
 }
 
-@keyframes appear {
-    0%{
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-}
-
 .modal-dialog {
-    width: 570px;
-    animation: appear 350ms ease-in 1;
+    max-width: 30%;
     margin: 1.75em auto;
 }
 
@@ -521,7 +514,8 @@ button.close {
 
 .navbar-item {
     font-size: 1.1rem;
-    margin-right: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
     color: white;
     display: inline-block;
 }
@@ -741,4 +735,19 @@ button.close {
 
 iframe.file-preview {
     height: 500px;
+}
+
+h1.about-heading,
+h2.about-heading {
+    color: var(--text-color);
+}
+
+h3.about-heading,
+h4.about-heading {
+    color: var(--main-color);
+}
+
+.about-page {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
 }
