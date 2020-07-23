@@ -24,6 +24,11 @@
         array_push($validationErrors, "Please upload file.");
     }
 
+    $shouldBeUnziped = false;
+    if (isset($_POST["unzip"])) {
+        $shouldBeUnziped = true;
+    }
+
     $fileEntity = File::fromAssociativeArray($_POST);
     $validationErrors = FileValidator::validateFile($fileEntity);
     if(count($validationErrors) > 0) {
@@ -32,6 +37,6 @@
     }
 
     $filesService = new FilesService();
-    $filesService->addFile(Utils::getUserId(), $fileEntity, $_FILES["file"]);
+    $filesService->addFile(Utils::getUserId(), $fileEntity, $_FILES["file"], $shouldBeUnziped);
     echo json_encode(new SuccessfulCommandResult());
 ?>

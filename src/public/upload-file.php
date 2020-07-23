@@ -36,6 +36,12 @@
                         <span class="required">*</span>
                     </label>
                     <input type="file" name="file" id="file" required />
+                    <div class="hide" id="zip-checkbox">
+                        <label for="unzip">
+                            <input type="checkbox" name="unzip">
+                            Unzip archive
+                        </label>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="name">

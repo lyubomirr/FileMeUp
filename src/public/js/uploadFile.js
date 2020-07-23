@@ -1,4 +1,20 @@
 (() => {
+    const fileInput = document.getElementById("file");
+    fileInput.addEventListener("change", (event) => {
+        const fileInput = event.currentTarget;
+
+        const lastDot = fileInput.files[0].name.lastIndexOf('.');
+        const ext = fileInput.files[0].name.substring(lastDot + 1);
+        const zipCheckbox = document.getElementById("zip-checkbox");
+        if (ext == "zip") {
+            if (zipCheckbox.classList.contains("hide"))
+                zipCheckbox.classList.remove("hide");
+        } else {
+            if (!zipCheckbox.classList.contains("hide"))
+                zipCheckbox.classList.add("hide");
+        }
+    })
+
     function addFormEventListener(folderId) {
         const formElement = document.getElementById("upload-file-form");
 

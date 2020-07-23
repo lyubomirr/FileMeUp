@@ -74,12 +74,12 @@
             return $this->fileRepository->getFilesByFolderId($folderId, new SearchQuery());
         }
 
-        public function addFile($userId, $fileEntity, $file) {
+        public function addFile($userId, $fileEntity, $file, $shouldBeUnzipped) {
             $extension = pathinfo($file["name"], PATHINFO_EXTENSION);
             
             $savedFiles = [];
             try {
-                if ($extension == "zip") {
+                if ($extension == "zip" && $shouldBeUnzipped) {
                     $savedFiles = $this->contentRepository->unzipFile($file["tmp_name"], Utils::combinePaths(array($userId, $fileEntity->folderId)));
 
                     for ($i=0; $i < count($savedFiles); $i++) {

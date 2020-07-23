@@ -674,6 +674,15 @@ button.close {
     max-width: 800px;
 }
 
+#zip-checkbox input[type=checkbox] {
+    height: 15px;
+    width: 15px;
+}
+
+#zip-checkbox {
+    margin-top: 6px;
+}
+
 .back-icon {
     color: var(--main-color);
     display: inline-block;
